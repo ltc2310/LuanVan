@@ -1,0 +1,21 @@
+<tabs>
+    <tab
+        id="@+id/tab_schedule"
+        icon="@drawable/ic_schedule"
+
+        />
+<tab
+    id="@+id/tab_favorites"
+    icon="@drawable/ic_favorite"
+
+    />
+    />
+<tab
+    id="@+id/tab_search"
+    icon="@drawable/ic_search"
+   />
+<tab
+    id="@+id/tab_menu"
+    icon="@drawable/ic_menu"
+     />
+</tabs>
