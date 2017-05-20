@@ -9,6 +9,9 @@
 
     <TextView
         android:text="Bạn có phhòng trọ muốn cho thuê?"
+        android:textColor="#2c00f0"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4" />
@@ -17,7 +20,7 @@
         android:text="Đăng tin ngay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button" />
+        android:id="@+id/btnDangTinNgay" />
 
     <ListView
         android:layout_width="match_parent"

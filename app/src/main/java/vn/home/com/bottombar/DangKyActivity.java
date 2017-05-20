@@ -25,7 +25,7 @@ public class DangKyActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText edtEmailDK, edtMatKhauDK, edtHoTenDK, edtSDTDK;
-    private Button btnDangKy;
+    private Button btnDangKy,btnDangNhapTaiDay;
     private ProgressBar pgBar;
 
 
@@ -39,8 +39,16 @@ public class DangKyActivity extends AppCompatActivity {
         btnDangKy = (Button) findViewById(R.id.btnDangKy);
         edtSDTDK = (EditText) findViewById(R.id.edtSDTDK);
         pgBar = (ProgressBar) findViewById(R.id.progressBarRegister);
+        btnDangNhapTaiDay = (Button) findViewById(R.id.btnDangNhapTaiDay);
 
         auth = FirebaseAuth.getInstance();
+
+        btnDangNhapTaiDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DangKyActivity.this,DangNhapActivity.class));
+            }
+        });
 
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +83,6 @@ public class DangKyActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             sendVerificationEmail();
-                            pgBar.setVisibility(View.GONE);
-                            startActivity(new Intent(DangKyActivity.this,DangNhapActivity.class));
                         }
                         else {
                             try {
@@ -109,6 +115,8 @@ public class DangKyActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(DangKyActivity.this, "Đăng kí thành công . Vui lòng kiểm tra email để kích hoạt tài khoản", Toast.LENGTH_SHORT).show();
+                        pgBar.setVisibility(View.GONE);
+                        startActivity(new Intent(DangKyActivity.this,DangNhapActivity.class));
                     }
                 }
             });

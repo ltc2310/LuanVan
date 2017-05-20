@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import java.util.Date;
 import java.util.List;
 
 import vn.home.com.adapter.PhongTroAdapter;
+import vn.home.com.bottombar.DangNhapActivity;
+import vn.home.com.bottombar.DangTinChoThueActivity;
+import vn.home.com.bottombar.QuenMatKhauActivity;
 import vn.home.com.bottombar.R;
 import vn.home.com.bottombar.XemChiTietActivity;
 import vn.home.com.model.DiaChi;
@@ -34,14 +38,26 @@ public class TimelineFragment extends Fragment {
     ListView lvTimeLine;
     PhongTroAdapter phongTroAdapter;
     ArrayList<PhongTro> dsPhongTro;
+    Button btnDangTinNgay;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_timeline, container, false);
         lvTimeLine = (ListView) v.findViewById(R.id.lvTimeLine);
+        btnDangTinNgay = (Button) v.findViewById(R.id.btnDangTinNgay);
+
+        btnDangTinNgay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DangTinChoThueActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         dsPhongTro = new ArrayList<>();
         DiaChi diaChi = new DiaChi("Hồ Chí Minh","Gò Vấp","637/33 Quang Trung Phường 11");
         ArrayList<String> linkHinh = new ArrayList<>();

@@ -34,6 +34,7 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
     int resource;
     List<PhongTro> objects;
 
+
     public PhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
         super(context, resource, objects);
         this.context=context;

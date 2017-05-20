@@ -60,6 +60,15 @@ public class DangNhapActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+
+        btnQuenMatKhau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DangNhapActivity.this, QuenMatKhauActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnDenDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,17 +107,15 @@ public class DangNhapActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại: email hoặc mật khẩu không chính xác, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
                         } else {
+                            checkIfEmailVerified();
                             Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
                         }
                     }
                 });
             }
         });
 
-         mCallbackManager = CallbackManager.Factory.create();
+        mCallbackManager = CallbackManager.Factory.create();
         btnLoginFacebook.setReadPermissions("email", "public_profile");
         btnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -128,6 +135,18 @@ public class DangNhapActivity extends AppCompatActivity {
                 Log.d("Facebook",error.getMessage());
             }
         });
+    }
+
+    private void checkIfEmailVerified() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.isEmailVerified()){
+            Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(DangNhapActivity.this, "Vui lòng kiểm tra email để kích hoạt tài khoản", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -153,6 +172,8 @@ public class DangNhapActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
 }
