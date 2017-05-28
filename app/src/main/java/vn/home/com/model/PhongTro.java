@@ -46,4 +46,7 @@ public class PhongTro implements Serializable {
 
     public PhongTro(PhongTro phongTro) {
     }
+
+    public PhongTro() {
+    }
 }

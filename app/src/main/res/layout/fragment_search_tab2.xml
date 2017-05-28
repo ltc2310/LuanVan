@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thiết lập tìm kiếm" />
+
+    <TextView
+        android:id="@+id/tvTinhThanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tỉnh thành: tất cả" />
+
+    <Spinner
+        android:id="@+id/spTinhThanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvGiaPhongTT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá phòng: tất cả" />
+
+    <SeekBar
+        android:id="@+id/sbGiaPhongTT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvDienTichTT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diện tích: tất cả" />
+
+    <SeekBar
+        android:id="@+id/sbDienTichTT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnTimPhongTroTT"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="Tìm phòng trọ" />
+</LinearLayout>

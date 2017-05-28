@@ -28,22 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTitleDangTin"
             android:background="#fcfcf9">
-            <TextView
-                android:id="@+id/tvSoHinh"
-                android:textColor="#2c00f0"
-                android:layout_margin="22dp"
-                android:textSize="17dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Số hình bạn đã chọn: 0"/>
 
-            <ImageButton
-                android:id="@+id/btnChonHinh"
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="80dp"
-                android:layout_toRightOf="@id/tvSoHinh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </RelativeLayout>
 
         <TextView
@@ -166,6 +151,52 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:id="@+id/txtChonHinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlFour"
+            android:text="Chọn hình ảnh"/>
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/rlFive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtChonHinh"
+            android:background="#fcfcf9">
+
+            <ImageButton
+                android:id="@+id/btnChonHinh"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/ic_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/rlSix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlFive"
+            android:background="#fcfcf9">
+
+            <GridView
+                android:id="@+id/gridHinhUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3" />
+
+        </RelativeLayout>
+
+
+
         <Button
             android:id="@+id/btnDangTinThuePhong"
             android:background="@color/colorPrimary"
@@ -173,7 +204,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/rlFour"
+            android:layout_below="@id/rlSix"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:text="Đăng Tin"/>
