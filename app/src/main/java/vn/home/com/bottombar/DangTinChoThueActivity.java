@@ -107,22 +107,6 @@ public class DangTinChoThueActivity extends AppCompatActivity {
     }
 
     private void xuLuDangTin() {
-        String giaPhongTro = edtGiaPhong.getText().toString();
-        String dienTich = edtDienTichPhong.getText().toString();
-        String diaChiChiTiet = edtChiTietDiaChi.getText().toString();
-        String moTa = edtMoTa.getText().toString();
-        if (giaPhongTro.isEmpty()||giaPhongTro.equals("")){
-            Toast.makeText(this, "Vui lòng nhập vào giá phòng", Toast.LENGTH_SHORT).show();
-        }
-        if (dienTich.isEmpty()||dienTich.equals("")){
-            Toast.makeText(this, "Vui lòng nhập vào diện tích", Toast.LENGTH_SHORT).show();
-        }
-        if (diaChiChiTiet.isEmpty()||diaChiChiTiet.equals("")){
-            Toast.makeText(this, "Vui lòng nhập vào địa chỉ ", Toast.LENGTH_SHORT).show();
-        }
-        if (moTa.isEmpty()||moTa.equals("")){
-            Toast.makeText(this, "Vui lòng nhập vào mô tả", Toast.LENGTH_SHORT).show();
-        }
 
 //        for(String path : filePaths){
 //            Uri file = Uri.fromFile(new File(path));
@@ -141,6 +125,25 @@ public class DangTinChoThueActivity extends AppCompatActivity {
 //                }
 //            });
 //        }
+
+        String giaPhongTro = edtGiaPhong.getText().toString();
+        String dienTich = edtDienTichPhong.getText().toString();
+        String diaChiChiTiet = edtChiTietDiaChi.getText().toString();
+        String moTa = edtMoTa.getText().toString();
+        if (giaPhongTro.isEmpty()||giaPhongTro.equals("")){
+            Toast.makeText(this, "Vui lòng nhập vào giá phòng", Toast.LENGTH_SHORT).show();
+        }
+        if (dienTich.isEmpty()||dienTich.equals("")){
+            Toast.makeText(this, "Vui lòng nhập vào diện tích", Toast.LENGTH_SHORT).show();
+        }
+        if (diaChiChiTiet.isEmpty()||diaChiChiTiet.equals("")){
+            Toast.makeText(this, "Vui lòng nhập vào địa chỉ ", Toast.LENGTH_SHORT).show();
+        }
+        if (moTa.isEmpty()||moTa.equals("")){
+            Toast.makeText(this, "Vui lòng nhập vào mô tả", Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
         
