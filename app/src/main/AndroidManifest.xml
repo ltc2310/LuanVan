@@ -17,17 +17,17 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".MainActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".XemChiTietActivity" />
         <activity android:name=".DangNhapActivity" />
         <activity android:name=".DangKyActivity" />
         <activity android:name=".QuenMatKhauActivity" />
         <activity android:name=".DangTinChoThueActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

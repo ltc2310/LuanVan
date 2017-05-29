@@ -1,7 +1,11 @@
 package vn.home.com.bottombar;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +29,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
@@ -44,18 +51,15 @@ public class DangTinChoThueActivity extends AppCompatActivity {
     private String tinhDuocChon,quanDuocChon;
     private ArrayList<String> filePaths;
     private ArrayList<String> linkHinh;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_tin_cho_thue);
-        storageReference = storage.getReference("gs://mylogin-c65fa.appspot");
-        databaseReference = database.getReference("https://mylogin-c65fa.firebaseio.com/");
         addControls();
         addEvent();
     }
@@ -107,24 +111,28 @@ public class DangTinChoThueActivity extends AppCompatActivity {
     }
 
     private void xuLuDangTin() {
+        progressDialog.setMessage("Uploading ...");
+        progressDialog.show();
 
-//        for(String path : filePaths){
-//            Uri file = Uri.fromFile(new File(path));
-//            StorageReference filePath = storageReference.child("Photos").child(file.getLastPathSegment());
-//            UploadTask uploadTask = filePath.putFile(file);
-//            uploadTask.addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(DangTinChoThueActivity.this, "Upload hình thất bại", Toast.LENGTH_SHORT).show();
-//                }
-//            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    linkHinh.add(taskSnapshot.getDownloadUrl().toString());
-//
-//                }
-//            });
-//        }
+        for(String path : filePaths){
+            Uri file = Uri.fromFile(new File(path));
+            StorageReference filePath = storageReference.child("Photos").child(file.getLastPathSegment());
+            UploadTask uploadTask = filePath.putFile(file);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(DangTinChoThueActivity.this, "Upload hình thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    linkHinh.add(downloadUrl.toString());
+                    Toast.makeText(DangTinChoThueActivity.this, "Upload success", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            });
+        }
 
         String giaPhongTro = edtGiaPhong.getText().toString();
         String dienTich = edtDienTichPhong.getText().toString();
@@ -143,11 +151,27 @@ public class DangTinChoThueActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập vào mô tả", Toast.LENGTH_SHORT).show();
         }
 
+        LatLng latLng = RetrieveLatlangFromAddress(edtChiTietDiaChi.getText().toString() + "," +quanDuocChon+","+tinhDuocChon, DangTinChoThueActivity.this);
 
 
+    }
 
-        
+    private LatLng RetrieveLatlangFromAddress(String myAddress, Context context){
+        LatLng latLng=null;
 
+        Geocoder gc=new Geocoder(context);
+        List<Address> addressList=null;
+        if(gc.isPresent()){
+            try {
+                addressList=gc.getFromLocationName(myAddress,1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address address=addressList.get(0);
+            latLng=new LatLng(address.getLatitude(),address.getLongitude());
+        }
+        return latLng;
     }
 
     private void LayHuyenTheoTinh(Object itemSelected) {
@@ -189,6 +213,8 @@ public class DangTinChoThueActivity extends AppCompatActivity {
         edtMoTa = (EditText) findViewById(R.id.edtMoTa);
         filePaths = new ArrayList<>();
         linkHinh = new ArrayList<>();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
