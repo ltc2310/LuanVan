@@ -162,7 +162,6 @@
             android:text="Chọn hình ảnh"/>
 
         <RelativeLayout
-            android:layout_marginTop="5dp"
             android:id="@+id/rlFive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,7 +170,6 @@
 
             <ImageButton
                 android:id="@+id/btnChonHinh"
-                android:layout_marginTop="7dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/ic_camera"
                 android:layout_width="wrap_content"
@@ -179,19 +177,64 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:id="@+id/tvDt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlFive"
+            android:text="Số điện thoại"/>
+
         <RelativeLayout
             android:layout_marginTop="5dp"
             android:id="@+id/rlSix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlFive"
+            android:layout_below="@+id/tvDt"
             android:background="#fcfcf9">
 
-            <GridView
-                android:id="@+id/gridHinhUpload"
+            <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/edtSoDt"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="3" />
+                android:inputType="phone"
+                android:layout_height="100dp"
+                android:paddingLeft="20dp"
+                android:hint="0122567901"
+                android:background="#fafacf"
+                android:layout_marginBottom="10dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:id="@+id/tvHoten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlSix"
+            android:text="Họ tên :"/>
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/rlSeven"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHoten"
+            android:background="#fcfcf9">
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/edtHoten"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:paddingLeft="20dp"
+                android:hint="Lê Văn A"
+                android:background="#fafacf"
+                android:layout_marginBottom="10dp"/>
 
         </RelativeLayout>
 
@@ -204,7 +247,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/rlSix"
+            android:layout_below="@id/rlSeven"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:text="Đăng Tin"/>
