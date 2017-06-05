@@ -14,13 +14,19 @@
 
         <TextView
             android:text="Ngày đăng:"
+            android:textStyle="bold"
+            android:textColor="#1128ae"
+            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView20"
             android:layout_weight="0.38" />
 
         <TextView
+            android:textColor="#1128ae"
             android:text="4/8/2017"
+            android:textSize="15dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtNgayDang"
@@ -33,34 +39,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            android:layout_weight="0.20"
-            android:text="Địa chỉ:" />
-
-        <TextView
-            android:text="637/33 Quang Trung Phường 11 Quận Gò Vấp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtDiaChi"
-            android:layout_weight="0.77" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
             android:text="Giá phòng:"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="#1128ae"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <TextView
             android:text="1.200.000"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="#eff59504"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtGiaPhong"
@@ -75,54 +66,69 @@
 
         <TextView
             android:text="Diện tích:"
+            android:textStyle="bold"
+            android:textColor="#1128ae"
+            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView17"
             android:layout_weight="1" />
 
         <TextView
-            android:text="20 "
+            android:text="20"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="#1128ae"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtDienTich"
             android:layout_weight="1" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <TextView
-            android:text="mét vuông"
+            android:textColor="#1128ae"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView19"
-            android:layout_weight="1" />
+            android:id="@+id/textView3"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:text="Địa chỉ:" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#1128ae"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="637/33 Quang Trung Phường 11 Quận Gò Vấp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDiaChi"
+            />
     </LinearLayout>
 
     <ImageView
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/hinhphong"
         android:id="@+id/imgHinh"
-        android:layout_weight="0.29" />
+        android:layout_weight="0.54" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_weight="0.06">
+        android:layout_height="1dp"
+        android:background="#0026ff"
+        android:text="" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_favorite"
-            android:id="@+id/btnThich"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_search"
-            android:id="@+id/btnChiaSe"
-            android:layout_weight="1" />
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,6 +34,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +61,6 @@ public class DangTinChoThueActivity extends AppCompatActivity {
     private ArrayList<String> linkHinh;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
-
 
 
     @Override
@@ -176,11 +178,15 @@ public class DangTinChoThueActivity extends AppCompatActivity {
             return;
         }
 
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String currentDate = formatter.format(date);
+
         LatLng latLng = layToaDo(edtChiTietDiaChi.getText().toString() + "," + quanDuocChon + "," + tinhDuocChon, DangTinChoThueActivity.this);
 
         databaseReference.child("phongtro").push().setValue(new PhongTro(
                 hoTen, latLng.latitude, latLng.longitude, new DiaChi(quanDuocChon, tinhDuocChon, diaChiChiTiet),
-                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, new Date(System.currentTimeMillis()), arrHinh, false
+                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false
         )).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

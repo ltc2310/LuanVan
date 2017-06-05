@@ -8,8 +8,10 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:text="Bạn có phhòng trọ muốn cho thuê?"
+        android:text="Bạn có phòng trọ muốn cho thuê?"
         android:textColor="#2c00f0"
+        android:textSize="15dp"
+        android:textStyle="bold"
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -20,10 +22,14 @@
         android:text="Đăng tin ngay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnDangTinNgay" />
+        android:id="@+id/btnDangTinNgay"
+        android:textColor="#fffafa"
+        android:background="#303F9F"
+        />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="507dp"
-        android:id="@+id/lvTimeLine" />
+        android:layout_height="match_parent"
+        android:id="@+id/lvTimeLine"
+        />
 </LinearLayout>

@@ -37,16 +37,16 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
 
     public PhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
         super(context, resource, objects);
-        this.context=context;
-        this.resource=resource;
-        this.objects=objects;
+        this.context = context;
+        this.resource = resource;
+        this.objects = objects;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
-        View row = inflater.inflate(this.resource,null);
+        View row = inflater.inflate(this.resource, null);
         ImageView imgHinh = (ImageView) row.findViewById(R.id.imgHinh);
         TextView txtDiaChi = (TextView) row.findViewById(R.id.txtDiaChi);
         TextView txtGia = (TextView) row.findViewById(R.id.txtGiaPhong);
@@ -54,11 +54,15 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         TextView txtNgayDang = (TextView) row.findViewById(R.id.txtNgayDang);
 
         PhongTro phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhong + "");
-        txtDienTich.setText(phongTro.dienTich +"");
-        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet+"");
-        Picasso.with(context).load(phongTro.linkHinh.get(0)).into(imgHinh);
-        txtNgayDang.setText(phongTro.ngayDang.getDay()+"/"+phongTro.ngayDang.getMonth()+"/"+phongTro.ngayDang.getYear());
+        txtGia.setText(phongTro.giaPhong + " triệu");
+        txtDienTich.setText(phongTro.dienTich + " mét vuông");
+        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " +phongTro.diaChi.thanhPho);
+        if (phongTro.linkHinh != null) {
+            Picasso.with(context).load(phongTro.linkHinh.get(0)).into(imgHinh);
+        }else {
+            Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/mylogin-c65fa.appspot.com/o/Photos%2F1.jpg?alt=media&token=aa387a71-52e3-46a5-a5a8-8712d3220ad3").into(imgHinh);
+        }
+        txtNgayDang.setText(phongTro.ngayDang);
         return row;
     }
 }

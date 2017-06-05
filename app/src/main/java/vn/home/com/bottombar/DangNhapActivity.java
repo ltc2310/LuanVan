@@ -121,7 +121,6 @@ public class DangNhapActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(DangNhapActivity.this, "success", Toast.LENGTH_SHORT).show();
-                Log.d("Facebook","Success");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -156,26 +155,18 @@ public class DangNhapActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(DangNhapActivity.this, "login success", Toast.LENGTH_SHORT).show();
-                            Log.d("Facebook","Success");
-                            FirebaseUser user = auth.getCurrentUser();
+                            Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(DangNhapActivity.this, "Authentication failed.",
+                            Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d("Facebook","Fail");
-                        }
 
-                        // ...
+                        }
                     }
                 });
     }
-
-
-
-
 }
 
 

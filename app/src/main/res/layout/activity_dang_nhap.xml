@@ -52,15 +52,7 @@
             android:hint="Mật khẩu" />
     </android.support.design.widget.TextInputLayout>
 
-    <CheckBox android:id="@+id/chkDuyTriDangNhap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Duy trì đăng nhập"
-        android:onClick="onCheckboxClicked"
-        android:layout_below="@+id/tiltwo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp" />
+
 
     <Button
         android:id="@+id/btnDangNhap"
@@ -68,7 +60,7 @@
         android:background="#303F9F"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/chkDuyTriDangNhap"
+        android:layout_below="@+id/tiltwo"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:text="Đăng Nhập" />
@@ -98,14 +90,6 @@
         android:layout_alignLeft="@+id/btnDangKy"
         android:layout_alignStart="@+id/btnDangKy" />
 
-    <ProgressBar
-        android:layout_marginTop="10dp"
-        android:id="@+id/progressBarLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnQuenMatKhau"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -114,7 +98,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginLeft="80dp"
         android:layout_below="@id/btnQuenMatKhau"
         />
+
+    <ProgressBar
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBarLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnQuenMatKhau"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
