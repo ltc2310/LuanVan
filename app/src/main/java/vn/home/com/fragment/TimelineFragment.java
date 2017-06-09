@@ -76,20 +76,23 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PhongTro phongTro = dataSnapshot.getValue(PhongTro.class);
-                dsPhongTro.add(phongTro);
-                phongTroAdapter = new PhongTroAdapter(getActivity(), R.layout.item, dsPhongTro);
-                lvTimeLine.setAdapter(phongTroAdapter);
-                lvTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        PhongTro a = dsPhongTro.get(position);
-                        Intent intent = new Intent(getActivity(), XemChiTietActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("PHONGTRO", a);
-                        intent.putExtra("MY_BUNDLE", bundle);
-                        startActivity(intent);
-                    }
-                });
+                if (phongTro.kichHoat == true){
+                    dsPhongTro.add(phongTro);
+                    phongTroAdapter = new PhongTroAdapter(getActivity(), R.layout.item, dsPhongTro);
+                    lvTimeLine.setAdapter(phongTroAdapter);
+                    lvTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            PhongTro a = dsPhongTro.get(position);
+                            Intent intent = new Intent(getActivity(), XemChiTietActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("PHONGTRO", a);
+                            intent.putExtra("MY_BUNDLE", bundle);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
             }
 
             @Override
