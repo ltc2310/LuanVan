@@ -126,6 +126,20 @@
         android:layout_marginTop="15dp"
         android:layout_weight="0.54" />
 
+
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_below="@+id/btnThongTin"
+        android:background="@null"
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:paddingLeft="35dp"
+        android:drawablePadding="-50dp"
+        android:drawableLeft="@drawable/ic_like"
+        />
+
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -133,6 +147,8 @@
         android:background="#0026ff"
         android:layout_marginTop="15dp"
         android:text="" />
+
+
 
 
 </LinearLayout>

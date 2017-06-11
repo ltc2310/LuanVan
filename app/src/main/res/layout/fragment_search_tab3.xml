@@ -5,59 +5,63 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tìm kiếm theo khu vực,địa phương" />
+        android:layout_weight="0.00"
+        android:text="Tìm kiếm xung quanh một địa điểm bất kỳ" />
 
     <TextView
-        android:id="@+id/tvTinhThanh"
+        android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tỉnh thành: tất cả" />
-
-    <Spinner
-        android:id="@+id/spTinhThanh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_weight="0.00"
+        android:text="Thiết lập tìm kiếm" />
 
     <TextView
-        android:id="@+id/tvQuanHuyen"
+        android:id="@+id/tvBanKinhBK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quận huyện" />
+        android:layout_weight="0.00"
+        android:text="Bán kính: tất cả" />
 
-    <Spinner
-        android:id="@+id/spQuanHuyen"
+    <SeekBar
+        android:id="@+id/sbBanKinhBK"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00" />
 
     <TextView
-        android:id="@+id/tvGiaPhongTT"
+        android:id="@+id/tvGiaPhongBK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.00"
         android:text="Giá phòng: tất cả" />
 
     <SeekBar
-        android:id="@+id/sbGiaPhongTT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvDienTichTT"
+        android:id="@+id/sbGiaPhongBK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.00" />
+
+    <TextView
+        android:id="@+id/tvDienTichBK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
         android:text="Diện tích: tất cả" />
 
     <SeekBar
-        android:id="@+id/sbDienTichTT"
+        android:id="@+id/sbDienTichBK"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00" />
 
     <Button
-        android:id="@+id/btnTimPhongTroTT"
-        android:layout_width="258dp"
+        android:id="@+id/btnTimPhongTroBK"
+        android:layout_width="316dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="Tìm phòng trọ" />
+
 </LinearLayout>

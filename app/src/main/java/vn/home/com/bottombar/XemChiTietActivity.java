@@ -43,7 +43,7 @@ public class XemChiTietActivity extends AppCompatActivity {
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + " ,"+ phongTro.diaChi.quan + " ," + phongTro.diaChi.thanhPho);
         txtGia.setText(phongTro.giaPhong.toString() + " triệu");
         txtMoTa.setText(phongTro.moTa);
-        txtNguoiDung.setText(phongTro.idNguoiDung);
+        txtNguoiDung.setText(phongTro.tenNguoiDung);
         txtLienLac.setText(phongTro.sdt);
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
         txtNgayDang.setText(phongTro.ngayDang);
@@ -95,6 +95,17 @@ public class XemChiTietActivity extends AppCompatActivity {
     }
 
     private void xuLyTimDuongDi() {
+        Intent intent_map = new Intent(XemChiTietActivity.this , MapsActivity.class);
+        intent_map.putExtra("luachon","chitiet");
+
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lang", phongTro.latitude);
+        bundle.putDouble("long", phongTro.longtitue);
+        bundle.putDouble("giaphong", phongTro.giaPhong);
+        bundle.putString("diachi", phongTro.diaChi.diaChiChiTiet);
+
+        intent_map.putExtras(bundle);
+        startActivity(intent_map);
     }
 
     private void xuLyGoiDien() {

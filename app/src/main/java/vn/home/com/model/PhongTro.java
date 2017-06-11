@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class PhongTro implements Serializable {
-    public String idNguoiDung;
+    public String tenNguoiDung;
     public Double latitude;
     public Double longtitue;
     public DiaChi diaChi;
@@ -20,11 +20,14 @@ public class PhongTro implements Serializable {
     public String ngayDang;
     public ArrayList<String> linkHinh;
     public boolean kichHoat;
+    public String email;
+    public String id;
 
-    public PhongTro(String idNguoiDung, Double latitude, Double longtitue, DiaChi diaChi,
-                    Integer dienTich, Double giaPhong, String sdt, String moTa, String ngayDang, ArrayList<String> linkHinh,boolean kichHoat) {
+    public PhongTro(String tenNguoiDung, Double latitude, Double longtitue, DiaChi diaChi,
+                    Integer dienTich, Double giaPhong, String sdt, String moTa, String ngayDang,
+                    ArrayList<String> linkHinh, boolean kichHoat, String email, String id) {
 
-        this.idNguoiDung = idNguoiDung;
+        this.tenNguoiDung = tenNguoiDung;
         this.latitude = latitude;
         this.longtitue = longtitue;
         this.diaChi = diaChi;
@@ -35,6 +38,8 @@ public class PhongTro implements Serializable {
         this.ngayDang = ngayDang;
         this.linkHinh = linkHinh;
         this.kichHoat = kichHoat;
+        this.email = email;
+        this.id = id;
     }
 
     public PhongTro(PhongTro phongTro) {
@@ -43,12 +48,4 @@ public class PhongTro implements Serializable {
     public PhongTro() {
     }
 
-    public PhongTro(String ngayDang,DiaChi diaChi, Double giaPhong,Integer dienTich,ArrayList<String> linkHinh) {
-        this.ngayDang = ngayDang;
-        this.diaChi = diaChi;
-        this.giaPhong = giaPhong;
-        this.dienTich = dienTich;
-        this.linkHinh = linkHinh;
-
-    }
 }

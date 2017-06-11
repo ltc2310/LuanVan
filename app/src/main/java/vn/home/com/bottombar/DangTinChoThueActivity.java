@@ -1,7 +1,6 @@
 package vn.home.com.bottombar;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -26,6 +25,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -61,6 +61,7 @@ public class DangTinChoThueActivity extends AppCompatActivity {
     private ArrayList<String> linkHinh;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
 
 
     @Override
@@ -149,6 +150,9 @@ public class DangTinChoThueActivity extends AppCompatActivity {
         String moTa = edtMoTa.getText().toString();
         String soDt = edtSoDt.getText().toString();
         String hoTen = edtHoten.getText().toString();
+        FirebaseUser user = auth.getCurrentUser();
+        String email = user.getEmail();
+
 
         if (giaPhongTro.isEmpty() || giaPhongTro.equals("")) {
             Toast.makeText(this, "Vui lòng nhập vào giá phòng", Toast.LENGTH_SHORT).show();
@@ -184,12 +188,17 @@ public class DangTinChoThueActivity extends AppCompatActivity {
 
         LatLng latLng = layToaDo(edtChiTietDiaChi.getText().toString() + "," + quanDuocChon + "," + tinhDuocChon, DangTinChoThueActivity.this);
 
-        databaseReference.child("phongtro").push().setValue(new PhongTro(
+        String key = databaseReference.push().getKey();
+
+        databaseReference.child("phongtro").child(key).setValue(new PhongTro(
                 hoTen, latLng.latitude, latLng.longitude, new DiaChi(quanDuocChon, tinhDuocChon, diaChiChiTiet),
-                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false
+                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false, email, key
         )).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                Intent intent = new Intent(DangTinChoThueActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
                 Toast.makeText(DangTinChoThueActivity.this, "Tin của bạn đã được gửi, Vui lòng chờ được duyệt !", Toast.LENGTH_SHORT).show();
             }
         });
@@ -253,6 +262,7 @@ public class DangTinChoThueActivity extends AppCompatActivity {
         linkHinh = new ArrayList<>();
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override

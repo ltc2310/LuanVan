@@ -2,6 +2,7 @@ package vn.home.com.bottombar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -120,7 +121,6 @@ public class DangNhapActivity extends AppCompatActivity {
         btnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(DangNhapActivity.this, "success", Toast.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -160,6 +160,7 @@ public class DangNhapActivity extends AppCompatActivity {
                             finish();
                             Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         } else {
+                            Log.d("Facebook",task.getException().getMessage());
                             Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại",
                                     Toast.LENGTH_SHORT).show();
 
@@ -167,6 +168,8 @@ public class DangNhapActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }
 
 

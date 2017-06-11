@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import vn.home.com.model.NguoiDung;
 
 
 public class DangKyActivity extends AppCompatActivity {
@@ -26,6 +30,7 @@ public class DangKyActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText edtEmailDK, edtMatKhauDK, edtHoTenDK, edtSDTDK;
     private Button btnDangKy,btnDangNhapTaiDay;
+    private DatabaseReference databaseReference;
     private ProgressBar pgBar;
 
 
@@ -40,6 +45,7 @@ public class DangKyActivity extends AppCompatActivity {
         edtSDTDK = (EditText) findViewById(R.id.edtSDTDK);
         pgBar = (ProgressBar) findViewById(R.id.progressBarRegister);
         btnDangNhapTaiDay = (Button) findViewById(R.id.btnDangNhapTaiDay);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         auth = FirebaseAuth.getInstance();
 
@@ -55,9 +61,16 @@ public class DangKyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String email = edtEmailDK.getText().toString().trim();
                 String matkhau = edtMatKhauDK.getText().toString().trim();
+                final String sdt = edtSDTDK.getText().toString();
+                final String hoTen = edtHoTenDK.getText().toString();
 
-                if (TextUtils.isEmpty(edtHoTenDK.getText().toString().trim())) {
+                if (TextUtils.isEmpty(hoTen)) {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền vào họ và tên!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(sdt)) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng điền vào số điện thoại", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -82,6 +95,7 @@ public class DangKyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            databaseReference.child("users").setValue(new NguoiDung(email, sdt, hoTen));
                             sendVerificationEmail();
                         }
                         else {

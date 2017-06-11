@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2dfdf">
+
+    <Button
+        android:id="@+id/btnDangNhapMenu"
+        android:background="#ffffff"
+        android:layout_marginTop="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:paddingLeft="35dp"
+        android:drawablePadding="-150dp"
+        android:drawableLeft="@drawable/ic_touch_app_red_500_24dp"
+        android:text="Đăng nhập"/>
+
+    <Button
+        android:id="@+id/btnTroGiup"
+        android:layout_below="@+id/btnDangNhapMenu"
+        android:background="#ffffff"
+        android:layout_marginTop="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="35dp"
+        android:drawableLeft="@drawable/ic_help"
+        android:drawablePadding="-160dp"
+        android:text="Trợ giúp"/>
+
+    <Button
+        android:id="@+id/btnThongTin"
+        android:layout_below="@+id/btnTroGiup"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="35dp"
+        android:drawableLeft="@drawable/ic_info_outline_red_500_24dp"
+        android:drawablePadding="-150dp"
+        android:text="Thông tin"/>
+
+    <Button
+        android:id="@+id/btnThoat"
+        android:layout_below="@+id/btnThongTin"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="35dp"
+        android:drawablePadding="-100dp"
+        android:drawableLeft="@drawable/ic_exit"
+        android:text="Thoát ứng dụng"/>
+
+</RelativeLayout>
