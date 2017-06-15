@@ -9,7 +9,7 @@
         android:background="#ffffff"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:paddingLeft="35dp"
         android:drawablePadding="-100dp"
         android:drawableLeft="@drawable/ic_person"
@@ -20,7 +20,7 @@
         android:background="#ffffff"
         android:layout_marginTop="15dp"
         android:layout_width="fill_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:paddingLeft="35dp"
         android:drawablePadding="-120dp"
         android:text="Đăng tin ngay"
@@ -72,8 +72,21 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/btnThoat"
+        android:id="@+id/btnDuyeTinCM"
         android:layout_below="@+id/btnThongTin"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="35dp"
+        android:drawablePadding="-100dp"
+        android:drawableLeft="@drawable/ic_approve"
+        android:text="Duyệt tin cho mướn"/>
+
+
+    <Button
+        android:id="@+id/btnThoat"
+        android:layout_below="@+id/btnDuyeTinCM"
         android:background="#ffffff"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"

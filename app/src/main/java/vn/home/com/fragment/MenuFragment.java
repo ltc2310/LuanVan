@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,8 +18,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import vn.home.com.bottombar.DangKyActivity;
 import vn.home.com.bottombar.DangNhapActivity;
 import vn.home.com.bottombar.DangTinChoThueActivity;
+import vn.home.com.bottombar.DuyetTinChoMuonPhongTroActivity;
 import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.R;
 
@@ -41,6 +46,7 @@ public class MenuFragment extends Fragment {
             Button btnThoat = (Button) v.findViewById(R.id.btnThoat);
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
+            Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
             btnDangNhap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,6 +86,14 @@ public class MenuFragment extends Fragment {
                             .show();
                 }
             });
+
+            btnDuyetTinCM.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(),DuyetTinChoMuonPhongTroActivity.class));
+                }
+            });
+
         } else {
             v = inflater.inflate(R.layout.layout_menu_login, container, false);
             Button btnDangXuat = (Button) v.findViewById(R.id.btnDangXuat);
@@ -88,6 +102,7 @@ public class MenuFragment extends Fragment {
             Button btnThoat = (Button) v.findViewById(R.id.btnThoat);
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
+            Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
             if (auth.getCurrentUser().getDisplayName() != null) {
                 String[] mangTach = auth.getCurrentUser().getDisplayName().split("\\|");
                 btnNguoiDung.setText(mangTach[0] + "\n" + mangTach[1]);
@@ -138,6 +153,13 @@ public class MenuFragment extends Fragment {
                                     System.exit(1);
                                 }
                             }).setNegativeButton("Hủy bỏ", null).show();
+                }
+            });
+
+            btnDuyetTinCM.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(),DuyetTinChoMuonPhongTroActivity.class));
                 }
             });
         }

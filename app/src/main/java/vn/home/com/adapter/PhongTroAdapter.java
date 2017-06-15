@@ -22,7 +22,10 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.R;
@@ -81,11 +84,12 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
 
         return row;
     }
-
+    Set<String> list = new HashSet<>();
     private void xuLyThich(PhongTro phongTro) {
         SharedPreferences preferences = getContext().getSharedPreferences(phongTroYeuThich,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("PHONGTRO",phongTro.id);
+        list.add(phongTro.id);
+        editor.putStringSet("PHONGTRO",list);
         editor.commit();
     }
 
