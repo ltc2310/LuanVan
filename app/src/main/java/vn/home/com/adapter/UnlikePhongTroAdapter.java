@@ -38,17 +38,17 @@ import vn.home.com.model.PhongTro;
  * Created by THANHCONG on 2/22/2017.
  */
 
-public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
+public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
     Activity context;
     int resource;
     List<PhongTro> objects;
     String phongTroYeuThich = "TrangThaiPhongTro";
-    ImageButton btnLike;
+    ImageButton  btnUnlike;
     TextView txtDiaChi, txtGia, txtDienTich, txtNgayDang;
     ImageView imgHinh;
 
 
-    public PhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
+    public UnlikePhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -60,12 +60,12 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View row = inflater.inflate(this.resource, null);
-        imgHinh = (ImageView) row.findViewById(R.id.imgHinh);
-        txtDiaChi = (TextView) row.findViewById(R.id.txtDiaChi);
-        txtGia = (TextView) row.findViewById(R.id.txtGiaPhong);
-        txtDienTich = (TextView) row.findViewById(R.id.txtDienTich);
-        txtNgayDang = (TextView) row.findViewById(R.id.txtNgayDang);
-        btnLike = (ImageButton) row.findViewById(R.id.btnLike);
+        imgHinh = (ImageView) row.findViewById(R.id.imgHinh1);
+        txtDiaChi = (TextView) row.findViewById(R.id.txtDiaChi1);
+        txtGia = (TextView) row.findViewById(R.id.txtGiaPhong1);
+        txtDienTich = (TextView) row.findViewById(R.id.txtDienTich1);
+        txtNgayDang = (TextView) row.findViewById(R.id.txtNgayDang1);
+        btnUnlike = (ImageButton) row.findViewById(R.id.btnDislike);
 
         final PhongTro phongTro = this.objects.get(position);
         txtGia.setText(phongTro.giaPhong + " VNĐ");
@@ -78,29 +78,28 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         }
         txtNgayDang.setText(phongTro.ngayDang);
 
-        btnLike.setOnClickListener(new View.OnClickListener() {
+        btnUnlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                xuLyThich(phongTro);
+                xuLyKhongThich(phongTro);
             }
         });
 
         return row;
     }
 
-    private void xuLyThich(PhongTro phongTro) {
+    private void xuLyKhongThich(PhongTro phongTro) {
         SharedPreferences preferences = getContext().getSharedPreferences(phongTroYeuThich, Context.MODE_PRIVATE);
         Set<String> list;
         if (preferences.getAll().size() != 0) {
             list = preferences.getStringSet("PHONGTRO", null);
-        } else {
-            list = new HashSet<>();
+            list.remove(phongTro.id);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putStringSet("PHONGTRO", list);
+            editor.commit();
+            Toast.makeText(getContext(), "Đã xóa phòng trọ khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
         }
-        SharedPreferences.Editor editor = preferences.edit();
-        list.add(phongTro.id);
-        editor.putStringSet("PHONGTRO", list);
-        editor.commit();
-        Toast.makeText(getContext(), "Đã thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+
     }
 
 

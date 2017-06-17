@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:paddingLeft="20dp"
-                android:hint="Giá phòng: 1.5 (Triệu VNĐ)"
+                android:hint="Giá phòng: 2000000 VNĐ"
                 android:background="#fafacf"
                 android:inputType="number"/>
 

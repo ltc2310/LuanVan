@@ -31,7 +31,6 @@ import vn.home.com.bottombar.R;
 
 public class MenuFragment extends Fragment {
     private FirebaseAuth auth;
-    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -46,7 +45,6 @@ public class MenuFragment extends Fragment {
             Button btnThoat = (Button) v.findViewById(R.id.btnThoat);
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
-            Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
             btnDangNhap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,12 +85,6 @@ public class MenuFragment extends Fragment {
                 }
             });
 
-            btnDuyetTinCM.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getActivity(),DuyetTinChoMuonPhongTroActivity.class));
-                }
-            });
 
         } else {
             v = inflater.inflate(R.layout.layout_menu_login, container, false);
@@ -103,10 +95,17 @@ public class MenuFragment extends Fragment {
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
             Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
-            if (auth.getCurrentUser().getDisplayName() != null) {
-                String[] mangTach = auth.getCurrentUser().getDisplayName().split("\\|");
-                btnNguoiDung.setText(mangTach[0] + "\n" + mangTach[1]);
-            }
+
+            btnNguoiDung.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Thông tin người dùng ")
+                            .setMessage("Email:" + auth.getCurrentUser().getEmail())
+                            .show();
+                }
+            });
+
             btnDangXuat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

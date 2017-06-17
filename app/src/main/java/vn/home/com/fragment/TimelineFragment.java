@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TabHost;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +39,7 @@ import vn.home.com.model.PhongTro;
 
 public class TimelineFragment extends Fragment {
 
+    TabHost tabHost;
     private ListView lvTimeLine;
     private PhongTroAdapter phongTroAdapter;
     private ArrayList<PhongTro> dsPhongTro;
@@ -51,6 +53,23 @@ public class TimelineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_timeline, container, false);
         lvTimeLine = (ListView) v.findViewById(R.id.lvTimeLine);
+
+        tabHost = (TabHost) v.findViewById(R.id.tabHost1);
+        tabHost.setup();
+
+        //add tab1
+        TabHost.TabSpec tab1=tabHost.newTabSpec("t1");
+        tab1.setContent(R.id.tab1);
+        tab1.setIndicator("Cho mướn");
+        tabHost.addTab(tab1);
+
+        //add tab2
+        TabHost.TabSpec tab2=tabHost.newTabSpec("t2");
+        tab2.setContent(R.id.tab2);
+        tab2.setIndicator("Cần mướn");
+        tabHost.addTab(tab2);
+
+
         btnDangTinNgay = (Button) v.findViewById(R.id.btnDangTinNgay);
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -115,6 +134,7 @@ public class TimelineFragment extends Fragment {
 
             }
         });
+
 
         return v;
     }

@@ -40,20 +40,8 @@
         android:text="Thông tin"/>
 
     <Button
-        android:id="@+id/btnDuyeTinCM"
-        android:layout_below="@+id/btnThongTin"
-        android:background="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="35dp"
-        android:drawablePadding="-100dp"
-        android:drawableLeft="@drawable/ic_approve"
-        android:text="Duyệt tin cho mướn"/>
-
-    <Button
         android:id="@+id/btnThoat"
-        android:layout_below="@+id/btnDuyeTinCM"
+        android:layout_below="@+id/btnThongTin"
         android:background="#ffffff"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"

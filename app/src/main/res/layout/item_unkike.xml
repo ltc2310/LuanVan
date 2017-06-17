@@ -24,15 +24,15 @@
             android:layout_weight="0.38" />
 
         <TextView
-            android:textColor="#1128ae"
-            android:text="4/8/2017"
-            android:textSize="15dp"
-            android:textStyle="bold"
+            android:id="@+id/txtNgayDang1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtNgayDang"
             android:layout_marginTop="15dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="4/8/2017"
+            android:textColor="#1128ae"
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,14 +50,14 @@
             android:layout_weight="1" />
 
         <TextView
-            android:text="1.200.000"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="#eff59504"
+            android:id="@+id/txtGiaPhong1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtGiaPhong"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="1.200.000"
+            android:textColor="#eff59504"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -77,14 +77,14 @@
             android:layout_weight="1" />
 
         <TextView
-            android:text="20"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="#1128ae"
+            android:id="@+id/txtDienTich1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtDienTich"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="20"
+            android:textColor="#1128ae"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -108,19 +108,19 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:textColor="#1128ae"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:text="637/33 Quang Trung Phường 11 Quận Gò Vấp"
+            android:id="@+id/txtDiaChi1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtDiaChi"
-            />
+            android:text="637/33 Quang Trung Phường 11 Quận Gò Vấp"
+            android:textColor="#1128ae"
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgHinh"
+        android:id="@+id/imgHinh1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -128,15 +128,14 @@
 
 
     <ImageButton
-        android:id="@+id/btnLike"
-        android:layout_below="@+id/btnThongTin"
-        android:background="@null"
-        android:layout_marginTop="10dp"
+        android:id="@+id/btnDislike"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/btnThongTin"
+        android:layout_marginTop="10dp"
+        android:background="@null"
         android:drawablePadding="-50dp"
-        android:src="@drawable/ic_like"
-        />
+        android:src="@drawable/ic_dislike" />
 
 
     <TextView

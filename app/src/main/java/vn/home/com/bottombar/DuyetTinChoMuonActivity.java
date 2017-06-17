@@ -46,7 +46,7 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE");
         phongTro = (PhongTro) bundle.getSerializable("PHONGTRO");
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + " ,"+ phongTro.diaChi.quan + " ," + phongTro.diaChi.thanhPho);
-        txtGia.setText(phongTro.giaPhong.toString() + " triệu");
+        txtGia.setText(phongTro.giaPhong.toString() + " VNĐ");
         txtMoTa.setText(phongTro.moTa);
         txtNguoiDung.setText(phongTro.tenNguoiDung);
         txtLienLac.setText(phongTro.sdt);
