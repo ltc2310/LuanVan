@@ -7,20 +7,19 @@
     tools:context="vn.home.com.bottombar.XemChiTietActivity">
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+            android:id="@+id/pager1"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-           />
+            />
 
         <me.relex.circleindicator.CircleIndicator
-            android:id="@+id/indicator"
+            android:id="@+id/indicator1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="240dp"
@@ -30,8 +29,8 @@
             android:id="@+id/tvThongTin"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_below="@id/pager"
-            android:text="Thông tin chi tiết"
+            android:text="Thông tin phòng cần tìm"
+            android:layout_below="@id/pager1"
             android:textColor="#2c00f0"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -41,7 +40,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="8dp"
             android:layout_below="@id/tvThongTin"
-            android:id="@+id/tvTenChuPhongTro"
+            android:id="@+id/tvTenNguoiTim"
             android:textColor="#2c00f0"
             android:textSize="18dp"
             android:layout_width="wrap_content"
@@ -52,8 +51,8 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvTenChuPhongTro"
-            android:id="@+id/tvNgayDangCT"
+            android:layout_below="@id/tvTenNguoiTim"
+            android:id="@+id/tvNgayDangTimPhong"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +64,7 @@
             android:id="@+id/tvTitleDiaChiCT"
             android:textColor="#2c00f0"
             android:textSize="18dp"
-            android:layout_below="@id/tvNgayDangCT"
+            android:layout_below="@id/tvNgayDangTimPhong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Địa chỉ:    "/>
@@ -76,8 +75,8 @@
             android:layout_marginTop="15dp"
             android:textColor="#2c00f0"
             android:layout_marginRight="2dp"
-            android:layout_below="@id/tvNgayDangCT"
-            android:id="@+id/tvDiaChiCT"
+            android:layout_below="@id/tvNgayDangTimPhong"
+            android:id="@+id/tvDiaChiTimPhong"
             android:layout_toRightOf="@id/tvTitleDiaChiCT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +86,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvDiaChiCT"
+            android:layout_below="@id/tvDiaChiTimPhong"
             android:id="@+id/tvTitleDienTichCT"
             android:textSize="18dp"
             android:layout_width="wrap_content"
@@ -95,12 +94,12 @@
             android:text="Diện tích:   "/>
 
         <TextView
-            android:id="@+id/tvDienTichCT"
+            android:id="@+id/tvDienTichTimPhong"
             android:layout_toRightOf="@id/tvTitleDienTichCT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvDiaChiCT"
+            android:layout_below="@id/tvDiaChiTimPhong"
             android:layout_marginTop="4dp"
             android:textSize="18dp"
             android:text="30 mét vuông"/>
@@ -108,7 +107,7 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="9dp"
-            android:layout_below="@id/tvDienTichCT"
+            android:layout_below="@id/tvDienTichTimPhong"
             android:id="@+id/tvTitleGiaPhongCT"
             android:textSize="18dp"
             android:textColor="#2c00f0"
@@ -117,11 +116,11 @@
             android:text="Giá phòng: "/>
 
         <TextView
-            android:id="@+id/tvGiaPhongCT"
+            android:id="@+id/tvGiaPhongTimPhong"
             android:layout_toRightOf="@id/tvTitleGiaPhongCT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvDienTichCT"
+            android:layout_below="@id/tvDienTichTimPhong"
             android:layout_marginTop="10dp"
             android:textColor="#eff59504"
             android:textSize="18dp"
@@ -130,7 +129,7 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:layout_below="@id/tvGiaPhongCT"
+            android:layout_below="@id/tvGiaPhongTimPhong"
             android:id="@+id/tvTitleMoTa"
             android:textSize="18dp"
             android:layout_width="wrap_content"
@@ -139,11 +138,11 @@
             android:text="Mô tả:      "/>
 
         <TextView
-            android:id="@+id/tvMoTa"
+            android:id="@+id/tvMoTaTimPhong"
             android:layout_toRightOf="@id/tvTitleMoTa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvGiaPhongCT"
+            android:layout_below="@id/tvGiaPhongTimPhong"
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:textColor="#2c00f0"
@@ -152,7 +151,7 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:layout_below="@id/tvMoTa"
+            android:layout_below="@id/tvMoTaTimPhong"
             android:id="@+id/tvTitleLienHe"
             android:textSize="18dp"
             android:textColor="#2c00f0"
@@ -161,11 +160,11 @@
             android:text="Liên hệ:      "/>
 
         <TextView
-            android:id="@+id/tvLienHe"
+            android:id="@+id/tvLienHeTimPhong"
             android:layout_toRightOf="@id/tvTitleLienHe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMoTa"
+            android:layout_below="@id/tvMoTaTimPhong"
             android:layout_marginTop="15dp"
             android:textColor="#2c00f0"
             android:textSize="18dp"
@@ -173,42 +172,23 @@
 
         <Button
             android:layout_marginLeft="30dp"
-            android:id="@+id/btnGoiCT"
-            android:layout_below="@id/tvMoTa"
+            android:id="@+id/btnGoiTimPhong"
+            android:layout_below="@id/tvMoTaTimPhong"
             android:background="@drawable/ic_phone1"
-            android:layout_toRightOf="@id/tvLienHe"
+            android:layout_toRightOf="@id/tvLienHeTimPhong"
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
         <Button
             android:layout_marginLeft="10dp"
-            android:id="@+id/btnNhanTinCT"
-            android:layout_below="@id/tvMoTa"
+            android:id="@+id/btnNhanTinTimPhong"
+            android:layout_below="@id/tvMoTaTimPhong"
             android:background="@drawable/ic_email1"
-            android:layout_toRightOf="@id/btnGoiCT"
+            android:layout_toRightOf="@id/btnGoiTimPhong"
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/tvLienHe"
-            android:id="@+id/tvTitleBanDo"
-            android:textSize="18dp"
-            android:textColor="#2c00f0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Xem bản đồ:      "/>
 
-        <Button
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="-20dp"
-            android:id="@+id/btnBanDo"
-            android:layout_below="@id/tvLienHe"
-            android:layout_toRightOf="@id/tvTitleBanDo"
-            android:background="@drawable/ic_location1"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
 
     </RelativeLayout>
 

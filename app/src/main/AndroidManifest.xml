@@ -27,7 +27,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".XemChiTietActivity">
             <meta-data
@@ -53,12 +52,17 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".DuyetTinChoMuonPhongTroActivity">
-        </activity>
+        <activity android:name=".DuyetTinChoMuonPhongTroActivity" />
         <activity android:name=".DuyetTinChoMuonActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DuyetTinChoMuonPhongTroActivity" />
+        </activity>
+        <activity android:name=".DangTinTimPhongActivity" />
+        <activity android:name=".ChiTietCanTimActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

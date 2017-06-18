@@ -48,7 +48,7 @@ public class DuyetTinChoMuonAdapter extends ArrayAdapter<PhongTro> {
 
 
         final PhongTro phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhong + " triệu");
+        txtGia.setText(phongTro.giaPhong + " VNĐ");
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " +phongTro.diaChi.thanhPho);
         txtNgayDang.setText(phongTro.ngayDang);

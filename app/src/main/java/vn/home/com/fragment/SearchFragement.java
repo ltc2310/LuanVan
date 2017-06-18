@@ -42,6 +42,8 @@ public class SearchFragement extends Fragment{
     private Double banKinh = 0D, giaPhong = 0D;
     private int dienTich = 0;
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -653,9 +655,10 @@ public class SearchFragement extends Fragment{
                 bundle.putInt("dientich", dienTich);
                 intent.putExtras(bundle);
                 startActivity(intent);
-                startActivity(intent);
             }
         });
+
+
 
         return v;
     }

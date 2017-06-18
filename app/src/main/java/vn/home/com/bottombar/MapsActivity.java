@@ -11,11 +11,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.PopupWindow;
-import android.widget.SeekBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,9 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String luaChon;
     private List<PhongTro> listPhongTro;
     private DatabaseReference mDatabase;
-    private PopupWindow popupWindow;
-    private LayoutInflater layoutInflater;
-    SeekBar sbGiaPhongBK,sbDienTichBK;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     private void sendRequest(String location_end) {
         try {
-            new DirectionFinder(this, location_end, loc.latitude + "," + loc.longitude).Execute();
+            new DirectionFinder(this,loc.latitude + "," + loc.longitude, location_end).Execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -424,7 +419,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (PhongTro item : listPhongTro) {
             if (item.latitude == marker.getPosition().latitude && item.longtitue == marker.getPosition().longitude) {
                 Intent intent = new Intent(MapsActivity.this, XemChiTietActivity.class);
-                intent.putExtra("PhongTro", item);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("PHONGTRO", item);
+                intent.putExtra("MY_BUNDLE", bundle);
                 startActivity(intent);
             }
         }

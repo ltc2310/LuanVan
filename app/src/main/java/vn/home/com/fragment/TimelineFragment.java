@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,12 +23,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import vn.home.com.adapter.PhongTroAdapter;
+import vn.home.com.adapter.PhongTroCanMuonAdapter;
+import vn.home.com.bottombar.ChiTietCanTimActivity;
 import vn.home.com.bottombar.DangNhapActivity;
 import vn.home.com.bottombar.DangTinChoThueActivity;
+import vn.home.com.bottombar.DangTinTimPhongActivity;
 import vn.home.com.bottombar.R;
 import vn.home.com.bottombar.XemChiTietActivity;
-import vn.home.com.model.DiaChi;
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroCanMuon;
 
 /**
  * Created by THANHCONG on 2/26/2017.
@@ -39,11 +39,13 @@ import vn.home.com.model.PhongTro;
 
 public class TimelineFragment extends Fragment {
 
-    TabHost tabHost;
-    private ListView lvTimeLine;
+    private TabHost tabHost;
+    private ListView lvTimeLine, lvTimeLine1;
     private PhongTroAdapter phongTroAdapter;
     private ArrayList<PhongTro> dsPhongTro;
-    private Button btnDangTinNgay;
+    private Button btnDangTinNgay, btnDangTinTimPhongNgay;
+    private PhongTroCanMuonAdapter phongTroCanMuonAdapter;
+    private ArrayList<PhongTroCanMuon> dsPhongTroCanTim;
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
 
@@ -53,6 +55,8 @@ public class TimelineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_timeline, container, false);
         lvTimeLine = (ListView) v.findViewById(R.id.lvTimeLine);
+        lvTimeLine1 = (ListView) v.findViewById(R.id.lvTimeLine1);
+        btnDangTinTimPhongNgay = (Button) v.findViewById(R.id.btnDangTinTimPhongNgay);
 
         tabHost = (TabHost) v.findViewById(R.id.tabHost1);
         tabHost.setup();
@@ -134,6 +138,68 @@ public class TimelineFragment extends Fragment {
 
             }
         });
+
+        btnDangTinTimPhongNgay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = auth.getCurrentUser();
+                if(user !=null){
+                    Intent intent = new Intent(getActivity(), DangTinTimPhongActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getActivity(), DangNhapActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        dsPhongTroCanTim = new ArrayList<>();
+        mDatabase.child("cantim").addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PhongTroCanMuon phongTroCanMuon = dataSnapshot.getValue(PhongTroCanMuon.class);
+                if (phongTroCanMuon.kichHoat == true){
+                    dsPhongTroCanTim.add(phongTroCanMuon);
+                    phongTroCanMuonAdapter = new PhongTroCanMuonAdapter(getActivity(), R.layout.item_canmuon, dsPhongTroCanTim);
+                    lvTimeLine1.setAdapter(phongTroCanMuonAdapter);
+                    lvTimeLine1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            PhongTroCanMuon b = dsPhongTroCanTim.get(position);
+                            Intent intent = new Intent(getActivity(), ChiTietCanTimActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("PHONGTROCANMUON", b);
+                            intent.putExtra("MY_BUNDLE1", bundle);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
         return v;

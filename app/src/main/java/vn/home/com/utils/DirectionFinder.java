@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +19,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.home.com.bottombar.MapsActivity;
 import vn.home.com.model.Distance;
 import vn.home.com.model.Duration;
 import vn.home.com.model.Route;
@@ -46,7 +44,7 @@ public class DirectionFinder {
 
     public void Execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
-        new getData().execute(createUrl());
+        new DownloadRawData().execute(createUrl());
     }
 
     private String createUrl() throws UnsupportedEncodingException {
@@ -56,7 +54,7 @@ public class DirectionFinder {
         return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
     }
 
-    private class getData extends AsyncTask<String, Void, String> {
+    private class DownloadRawData extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {

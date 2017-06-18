@@ -22,7 +22,7 @@
         android:text="Đăng tin ngay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnDangTinTimPhong"
+        android:id="@+id/btnDangTinTimPhongNgay"
         android:textColor="#fffafa"
         android:background="#303F9F"
         />

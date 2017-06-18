@@ -96,7 +96,7 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
             list.remove(phongTro.id);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putStringSet("PHONGTRO", list);
-            editor.commit();
+            editor.apply();
             Toast.makeText(getContext(), "Đã xóa phòng trọ khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
         }
 

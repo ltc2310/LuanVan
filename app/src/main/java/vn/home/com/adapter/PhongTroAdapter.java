@@ -99,7 +99,7 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         SharedPreferences.Editor editor = preferences.edit();
         list.add(phongTro.id);
         editor.putStringSet("PHONGTRO", list);
-        editor.commit();
+        editor.apply();
         Toast.makeText(getContext(), "Đã thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
     }
 
