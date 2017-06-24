@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,6 +25,8 @@ import java.util.Set;
 
 import vn.home.com.bottombar.R;
 import vn.home.com.model.PhongTroCanMuon;
+import vn.home.com.model.PhongTroQuanTam;
+import vn.home.com.model.PhongTroYeuThich;
 
 /**
  * Created by THANHCONG-PC on 6/18/2017.
@@ -29,10 +36,11 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
     Activity context;
     int resource;
     List<PhongTroCanMuon> objects;
-    String phongTroQuanTam = "PhongTroQuanTam";
     ImageButton btnUnlikeTimPhong;
     TextView txtDiaChi, txtGia, txtDienTich, txtNgayDang;
     ImageView imgHinhCanTim;
+    DatabaseReference databaseReference;
+    Boolean isDeleteCanMuon;
 
     public UnlikePhongTroCanMuonAdapter(Activity context, int resource, List<PhongTroCanMuon> objects) {
         super(context, resource, objects);
@@ -52,6 +60,7 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
         txtNgayDang = (TextView) row.findViewById(R.id.txtNgayDangCAM1);
         btnUnlikeTimPhong = (ImageButton) row.findViewById(R.id.btnUnlikeTimPhong);
         imgHinhCanTim = (ImageView) row.findViewById(R.id.imgHinhCanTim1);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         final PhongTroCanMuon phongTro = this.objects.get(position);
         txtGia.setText(phongTro.giaPhongMin + " VNĐ" + " - " + phongTro.giaPhongMax + " VNĐ");
@@ -64,6 +73,7 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
         btnUnlikeTimPhong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isDeleteCanMuon = true;
                 xuLyKhongThich(phongTro);
             }
         });
@@ -71,17 +81,42 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
         return row;
     }
 
-    private void xuLyKhongThich(PhongTroCanMuon phongTro) {
-        SharedPreferences preferences = getContext().getSharedPreferences(phongTroQuanTam, Context.MODE_PRIVATE);
-        Set<String> list;
-        if (preferences.getAll().size() != 0) {
-            list = preferences.getStringSet("PHONGTROQUANTAM", null);
-            list.remove(phongTro.idPhongTroCM);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putStringSet("PHONGTROQUANTAM", list);
-            editor.apply();
-            Toast.makeText(getContext(), "Đã xóa phòng trọ khỏi danh sách quan tâm", Toast.LENGTH_SHORT).show();
-        }
+    private void xuLyKhongThich(final PhongTroCanMuon phongTro) {
+        databaseReference.child("phongtroquantam").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (isDeleteCanMuon){
+                    PhongTroQuanTam phongTroQuanTam = dataSnapshot.getValue(PhongTroQuanTam.class);
+                    if (phongTroQuanTam.maPhongTroQuanTam.equals(phongTro.idPhongTroCM)){
+                        String id = phongTroQuanTam.id;
+                        databaseReference.child("phongtroquantam").child(id).removeValue();
+                        Toast.makeText(getContext(), "Đã xóa tin khỏi danh quan tâm", Toast.LENGTH_SHORT).show();
+                    }
+                    isDeleteCanMuon = false;
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

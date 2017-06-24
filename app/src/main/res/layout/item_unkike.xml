@@ -131,7 +131,6 @@
         android:id="@+id/btnDislike"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/btnThongTin"
         android:layout_marginTop="10dp"
         android:background="@null"
         android:drawablePadding="-50dp"

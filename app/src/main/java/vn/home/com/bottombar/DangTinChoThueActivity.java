@@ -26,6 +26,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,6 +47,7 @@ import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
 import vn.home.com.model.DiaChi;
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroYeuThich;
 
 public class DangTinChoThueActivity extends AppCompatActivity {
 
@@ -70,7 +74,6 @@ public class DangTinChoThueActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dang_tin_cho_thue);
         addControls();
         addEvent();
-
     }
 
     private void addEvent() {

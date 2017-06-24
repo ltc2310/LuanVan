@@ -87,4 +87,5 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="facebook_app_id">311445622608382</string>
+    <string name="title_activity_gui_mail_nguoi_dung">GuiMailNguoiDungActivity</string>
 </resources>

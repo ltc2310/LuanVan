@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="vn.home.com.bottombar.DangTinChoThueActivity"
+    android:background="#e2dfdf">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:id="@+id/tvTitleThongTinEmailDT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1d7fe9"
+            android:text="Gửi tới: "/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:id="@+id/tvEmailNguoiGuiDT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1d7fe9"
+            android:layout_below="@id/tvTitleThongTinEmailDT"
+            android:text="Email"/>
+
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/rlOne"
+            android:layout_below="@+id/tvEmailNguoiGuiDT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fcfcf9">
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/edtNoiDungCanGuiDT"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:paddingLeft="20dp"
+                android:hint="Nhập nội dung cần gửi tại đây"
+                android:background="#fafacf"
+                android:layout_marginBottom="10dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnGuiMailChoNguoiDungDT"
+            android:background="@color/colorPrimary"
+            android:textColor="#fffefe"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rlOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gửi"/>
+
+    </RelativeLayout>
+
+</ScrollView>

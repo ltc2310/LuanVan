@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +30,7 @@ import vn.home.com.fragment.SearchFragement;
 import vn.home.com.fragment.TimelineFragment;
 import vn.home.com.model.NguoiDung;
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroYeuThich;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     static List<NguoiDung> listNguoiDung;
     int notificationId;
     private DatabaseReference mDatabase;
+    private FirebaseAuth auth;
     List<PhongTro> listPhongTro;
 
     static boolean read;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -58,8 +62,14 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer, timelineFragment).commit();
                 }
                 if (tabId == R.id.tab_favorites) {
-                    FavoriteFragment favoriteFragment = new FavoriteFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer, favoriteFragment).commit();
+                    if(auth.getCurrentUser() !=null){
+                        FavoriteFragment favoriteFragment = new FavoriteFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.contentContainer, favoriteFragment).commit();
+                    }else {
+                        Intent intent = new Intent(MainActivity.this, DangNhapActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
                 if (tabId == R.id.tab_search) {
                     SearchFragement searchFragement = new SearchFragement();
@@ -71,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
 
         FirebaseDatabase myFirebaseRef = FirebaseDatabase.getInstance();
@@ -151,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 

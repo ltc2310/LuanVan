@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,8 @@ import vn.home.com.bottombar.R;
 import vn.home.com.bottombar.XemChiTietActivity;
 import vn.home.com.model.PhongTro;
 import vn.home.com.model.PhongTroCanMuon;
+import vn.home.com.model.PhongTroQuanTam;
+import vn.home.com.model.PhongTroYeuThich;
 
 /**
  * Created by THANHCONG on 2/26/2017.
@@ -44,13 +48,13 @@ public class FavoriteFragment extends Fragment {
     private UnlikePhongTroAdapter phongTroAdapter;
     private ArrayList<PhongTro> dsPhongTro;
     private DatabaseReference mDatabase;
-    private String phongTroYeuThich = "TrangThaiPhongTro";
+    private FirebaseAuth auth;
+    private ArrayList<String> dsMaYeuThich;
 
     private ListView lvFavorite1;
     private UnlikePhongTroCanMuonAdapter phongTroCanMuonAdapter;
     private ArrayList<PhongTroCanMuon> dsPhongTroCanMuon;
-
-    private String phongTroQuanTam = "PhongTroQuanTam";
+    private ArrayList<String> dsQuanTam;
 
     @Nullable
     @Override
@@ -59,8 +63,11 @@ public class FavoriteFragment extends Fragment {
         lvFavorite = (ListView) v.findViewById(R.id.lvFavorite);
         lvFavorite1 = (ListView) v.findViewById(R.id.lvFavorite1);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
         dsPhongTro = new ArrayList<>();
         dsPhongTroCanMuon = new ArrayList<>();
+        dsMaYeuThich = new ArrayList<>();
+        dsQuanTam = new ArrayList<>();
 
         tabHost = (TabHost) v.findViewById(R.id.tabHost2);
         tabHost.setup();
@@ -77,115 +84,156 @@ public class FavoriteFragment extends Fragment {
         tab2.setIndicator("Cần mướn");
         tabHost.addTab(tab2);
 
+        mDatabase.child("phongtroyeuthich").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PhongTroYeuThich phongTroYeuThich = dataSnapshot.getValue(PhongTroYeuThich.class);
+                if (phongTroYeuThich.email.toString().equals(auth.getCurrentUser().getEmail()))
+                    dsMaYeuThich.add(phongTroYeuThich.maPhongTroYeuThich);
+            }
 
-        SharedPreferences preferences = getContext().getSharedPreferences(phongTroYeuThich, Context.MODE_PRIVATE);
-        if (preferences.getAll().size() != 0) {
-            final Set<String> phongTroYeuThich = preferences.getStringSet("PHONGTRO", null);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            if (phongTroYeuThich != null) {
-                mDatabase.child("phongtro").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        PhongTro phongTro = dataSnapshot.getValue(PhongTro.class);
-                        for (String id : phongTroYeuThich) {
-                            if (phongTro.id.equals(id)) {
-                                dsPhongTro.add(phongTro);
-                                phongTroAdapter = new UnlikePhongTroAdapter(getActivity(), R.layout.item_unkike, dsPhongTro);
-                                lvFavorite.setAdapter(phongTroAdapter);
-                                lvFavorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        PhongTro a = dsPhongTro.get(position);
-                                        Intent intent = new Intent(getActivity(), XemChiTietActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("PHONGTRO", a);
-                                        intent.putExtra("MY_BUNDLE", bundle);
-                                        startActivity(intent);
-                                    }
-                                });
+            }
 
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("phongtro").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PhongTro phongTro = dataSnapshot.getValue(PhongTro.class);
+                for (String maPhong : dsMaYeuThich)
+                if (maPhong.equals(phongTro.id)){
+                    dsPhongTro.add(phongTro);
+                    if (getActivity() !=null){
+                        phongTroAdapter = new UnlikePhongTroAdapter(getActivity(), R.layout.item_unkike, dsPhongTro);
+                        lvFavorite.setAdapter(phongTroAdapter);
+                        lvFavorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                PhongTro phongTroYeuThich = dsPhongTro.get(i);
+                                Intent intent = new Intent(getActivity(), XemChiTietActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("PHONGTRO", phongTroYeuThich);
+                                intent.putExtra("MY_BUNDLE", bundle);
+                                startActivity(intent);
                             }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("phongtroquantam").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PhongTroQuanTam phongTroQuanTam = dataSnapshot.getValue(PhongTroQuanTam.class);
+                if (phongTroQuanTam.email.toString().equals(auth.getCurrentUser().getEmail()))
+                    dsQuanTam.add(phongTroQuanTam.maPhongTroQuanTam);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("cantim").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PhongTroCanMuon phongTroCanMuon = dataSnapshot.getValue(PhongTroCanMuon.class);
+                for (String maPhong : dsQuanTam)
+                    if (maPhong.equals(phongTroCanMuon.idPhongTroCM)){
+                        dsPhongTroCanMuon.add(phongTroCanMuon);
+                        if (getActivity() !=null){
+                            phongTroCanMuonAdapter = new UnlikePhongTroCanMuonAdapter(getActivity(), R.layout.item_canmuon_unlike, dsPhongTroCanMuon);
+                            lvFavorite1.setAdapter(phongTroCanMuonAdapter);
+                            lvFavorite1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    PhongTroCanMuon phongTroCanMuon = dsPhongTroCanMuon.get(i);
+                                    Intent intent = new Intent(getActivity(), ChiTietCanTimActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("PHONGTROCANMUON", phongTroCanMuon);
+                                    intent.putExtra("MY_BUNDLE1", bundle);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
             }
-        }
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(phongTroQuanTam, Context.MODE_PRIVATE);
-        if (sharedPreferences.getAll().size() != 0) {
-            final Set<String> phongTroDaQuanTam = sharedPreferences.getStringSet("PHONGTROQUANTAM", null);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            if (phongTroDaQuanTam != null) {
-
-                mDatabase.child("cantim").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        PhongTroCanMuon phongTro = dataSnapshot.getValue(PhongTroCanMuon.class);
-                        for (String id : phongTroDaQuanTam) {
-                            if (phongTro.idPhongTroCM.equals(id)) {
-                                dsPhongTroCanMuon.add(phongTro);
-                                phongTroCanMuonAdapter = new UnlikePhongTroCanMuonAdapter(getActivity(), R.layout.item_canmuon_unlike, dsPhongTroCanMuon);
-                                lvFavorite1.setAdapter(phongTroCanMuonAdapter);
-                                lvFavorite1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        PhongTroCanMuon b = dsPhongTroCanMuon.get(position);
-                                        Intent intent = new Intent(getActivity(), ChiTietCanTimActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("PHONGTROCANMUON", b);
-                                        intent.putExtra("MY_BUNDLE1", bundle);
-                                        startActivity(intent);
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
             }
-        }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return v;
     }
-
 }

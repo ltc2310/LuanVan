@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -33,6 +36,7 @@ import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.R;
 import vn.home.com.fragment.TimelineFragment;
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroYeuThich;
 
 /**
  * Created by THANHCONG on 2/22/2017.
@@ -42,10 +46,11 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
     Activity context;
     int resource;
     List<PhongTro> objects;
-    String phongTroYeuThich = "TrangThaiPhongTro";
     ImageButton  btnUnlike;
     TextView txtDiaChi, txtGia, txtDienTich, txtNgayDang;
     ImageView imgHinh;
+    DatabaseReference databaseReference;
+    Boolean isDelete;
 
 
     public UnlikePhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
@@ -66,6 +71,7 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
         txtDienTich = (TextView) row.findViewById(R.id.txtDienTich1);
         txtNgayDang = (TextView) row.findViewById(R.id.txtNgayDang1);
         btnUnlike = (ImageButton) row.findViewById(R.id.btnDislike);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         final PhongTro phongTro = this.objects.get(position);
         txtGia.setText(phongTro.giaPhong + " VNĐ");
@@ -81,6 +87,7 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
         btnUnlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isDelete = true;
                 xuLyKhongThich(phongTro);
             }
         });
@@ -88,17 +95,41 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
         return row;
     }
 
-    private void xuLyKhongThich(PhongTro phongTro) {
-        SharedPreferences preferences = getContext().getSharedPreferences(phongTroYeuThich, Context.MODE_PRIVATE);
-        Set<String> list;
-        if (preferences.getAll().size() != 0) {
-            list = preferences.getStringSet("PHONGTRO", null);
-            list.remove(phongTro.id);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putStringSet("PHONGTRO", list);
-            editor.apply();
-            Toast.makeText(getContext(), "Đã xóa phòng trọ khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
-        }
+    private void xuLyKhongThich(final PhongTro phongTro) {
+        databaseReference.child("phongtroyeuthich").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(isDelete){
+                    PhongTroYeuThich phongTroYeuThich = dataSnapshot.getValue(PhongTroYeuThich.class);
+                    if (phongTroYeuThich.maPhongTroYeuThich.equals(phongTro.id)){
+                        String id = phongTroYeuThich.id;
+                        databaseReference.child("phongtroyeuthich").child(id).removeValue();
+                        Toast.makeText(getContext(), "Đã xóa phòng trọ khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    }
+                    isDelete = false;
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

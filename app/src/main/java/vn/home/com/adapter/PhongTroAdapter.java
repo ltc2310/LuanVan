@@ -17,8 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -33,6 +38,7 @@ import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.R;
 import vn.home.com.fragment.TimelineFragment;
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroYeuThich;
 
 /**
  * Created by THANHCONG on 2/22/2017.
@@ -42,10 +48,12 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
     Activity context;
     int resource;
     List<PhongTro> objects;
-    String phongTroYeuThich = "TrangThaiPhongTro";
     ImageButton btnLike;
     TextView txtDiaChi, txtGia, txtDienTich, txtNgayDang;
     ImageView imgHinh;
+    DatabaseReference databaseReference;
+    FirebaseAuth auth;
+    ArrayList<String> dsMaYeuThich;
 
 
     public PhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
@@ -53,6 +61,39 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         this.context = context;
         this.resource = resource;
         this.objects = objects;
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
+        dsMaYeuThich = new ArrayList<>();
+        if (auth.getCurrentUser() != null) {
+            databaseReference.child("phongtroyeuthich").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    PhongTroYeuThich phongTroYeuThich = dataSnapshot.getValue(PhongTroYeuThich.class);
+                    if (phongTroYeuThich.email.toString().equals(auth.getCurrentUser().getEmail()))
+                    dsMaYeuThich.add(phongTroYeuThich.maPhongTroYeuThich);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     @NonNull
@@ -88,20 +129,50 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         return row;
     }
 
-    private void xuLyThich(PhongTro phongTro) {
-        SharedPreferences preferences = getContext().getSharedPreferences(phongTroYeuThich, Context.MODE_PRIVATE);
-        Set<String> list;
-        if (preferences.getAll().size() != 0) {
-            list = preferences.getStringSet("PHONGTRO", null);
-        } else {
-            list = new HashSet<>();
+    int check = 0;
+    private void xuLyThich(final PhongTro phongTro) {
+        if (auth.getCurrentUser() ==null){
+            Toast.makeText(getContext(), "Vui lòng đăng nhập để thêm phòng trọ yêu thích", Toast.LENGTH_SHORT).show();
+        }else {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("phongtroyeuthich").exists()){
+                        for (String item : dsMaYeuThich) {
+                            if (item.toString().equals(phongTro.id)) {
+                                check = 1;
+                                break;
+                            } else {
+                                check = 2;
+                            }
+                        }
+                        if (check == 2) {
+                            xuLyThemPhongTroVaoDanhSachYeuThich(phongTro);
+                            dsMaYeuThich.add(phongTro.id);
+                            check = 0;
+                        }
+                        else if (check == 1) {
+                            Toast.makeText(getContext(), "Phòng trọ đã được thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        xuLyThemPhongTroVaoDanhSachYeuThich(phongTro);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
-        SharedPreferences.Editor editor = preferences.edit();
-        list.add(phongTro.id);
-        editor.putStringSet("PHONGTRO", list);
-        editor.apply();
-        Toast.makeText(getContext(), "Đã thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+
     }
 
+    private void xuLyThemPhongTroVaoDanhSachYeuThich(PhongTro phongTro) {
+        String email = auth.getCurrentUser().getEmail();
+        String key = databaseReference.push().getKey();
+        databaseReference.child("phongtroyeuthich").child(key).setValue(new PhongTroYeuThich(key, email, phongTro.id));
+        Toast.makeText(getContext(), "Đã thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+    }
 
 }

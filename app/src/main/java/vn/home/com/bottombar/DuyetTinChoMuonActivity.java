@@ -2,7 +2,6 @@ package vn.home.com.bottombar;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,16 +22,16 @@ import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 import vn.home.com.adapter.MyAdapter;
-import vn.home.com.model.DiaChi;
 import vn.home.com.model.PhongTro;
 
 public class DuyetTinChoMuonActivity extends AppCompatActivity {
-    TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang ;
-    Button btnDuyetTin;
-    PhongTro phongTro;
+    private TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang ;
+    private Button btnDuyetTin, btnHuyTin;
+    private PhongTro phongTro;
     private static ViewPager mPager;
     private static int currentPage = 0;
     private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +82,7 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
                  public void onDataChange(DataSnapshot dataSnapshot) {
                      dataSnapshot.getRef().child("kichHoat").setValue(true);
                      Toast.makeText(DuyetTinChoMuonActivity.this, "Tin được duyệt thành công", Toast.LENGTH_SHORT).show();
-                     startActivity(new Intent(DuyetTinChoMuonActivity.this, DuyetTinChoMuonPhongTroActivity.class));
+                     startActivity(new Intent(DuyetTinChoMuonActivity.this, DuyetTinActivity.class));
                  }
 
                  @Override
@@ -94,6 +92,17 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
              });
            }
        });
+
+        btnHuyTin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DuyetTinChoMuonActivity.this, GuiMailNguoiDungActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("PHONGTRO", phongTro);
+                intent.putExtra("PHONGTRO_BUNDLE", bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -107,6 +116,8 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
         txtDienTich = (TextView) findViewById(R.id.tvDienTichDT);
         txtNgayDang = (TextView) findViewById(R.id.tvNgayDangDT);
         btnDuyetTin = (Button) findViewById(R.id.btnDuyetTin);
+        btnHuyTin = (Button) findViewById(R.id.btnHuyTin);
+        auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 }

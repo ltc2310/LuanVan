@@ -7,7 +7,6 @@
     tools:context="vn.home.com.bottombar.XemChiTietActivity">
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,11 +26,11 @@
             />
 
         <TextView
-            android:id="@+id/tvThongTin"
+            android:id="@+id/tvThongTinDT"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
+            android:text="Thông tin phòng cần tìm"
             android:layout_below="@id/pagerDT"
-            android:text="Thông tin chi tiết"
             android:textColor="#2c00f0"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -40,8 +39,8 @@
         <TextView
             android:layout_marginLeft="12dp"
             android:layout_marginTop="8dp"
-            android:layout_below="@id/tvThongTin"
-            android:id="@+id/tvTenChuPhongTroDT"
+            android:layout_below="@id/tvThongTinDT"
+            android:id="@+id/tvTenNguoiTimDT"
             android:textColor="#2c00f0"
             android:textSize="18dp"
             android:layout_width="wrap_content"
@@ -52,8 +51,8 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvTenChuPhongTroDT"
-            android:id="@+id/tvNgayDangDT"
+            android:layout_below="@id/tvTenNguoiTimDT"
+            android:id="@+id/tvNgayDangTimPhongDT"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,10 +61,10 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:id="@+id/tvTitleDiaChiCT"
+            android:id="@+id/tvTitleDiaChiDT"
             android:textColor="#2c00f0"
             android:textSize="18dp"
-            android:layout_below="@id/tvNgayDangDT"
+            android:layout_below="@id/tvNgayDangTimPhongDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Địa chỉ:    "/>
@@ -76,9 +75,9 @@
             android:layout_marginTop="15dp"
             android:textColor="#2c00f0"
             android:layout_marginRight="2dp"
-            android:layout_below="@id/tvNgayDangDT"
-            android:id="@+id/tvDiaChiDT"
-            android:layout_toRightOf="@id/tvTitleDiaChiCT"
+            android:layout_below="@id/tvNgayDangTimPhongDT"
+            android:id="@+id/tvDiaChiTimPhongDT"
+            android:layout_toRightOf="@id/tvTitleDiaChiDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="637/33, Quang Trung, Phường 11, Quận Gò Vấp, TP. HCM"/>
@@ -87,20 +86,20 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvDiaChiDT"
-            android:id="@+id/tvTitleDienTichCT"
+            android:layout_below="@id/tvDiaChiTimPhongDT"
+            android:id="@+id/tvTitleDienTichDT"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Diện tích:   "/>
 
         <TextView
-            android:id="@+id/tvDienTichDT"
-            android:layout_toRightOf="@id/tvTitleDienTichCT"
+            android:id="@+id/tvDienTichTimPhongDT"
+            android:layout_toRightOf="@id/tvTitleDienTichDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#2c00f0"
-            android:layout_below="@id/tvDiaChiDT"
+            android:layout_below="@id/tvDiaChiTimPhongDT"
             android:layout_marginTop="4dp"
             android:textSize="18dp"
             android:text="30 mét vuông"/>
@@ -108,8 +107,8 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="9dp"
-            android:layout_below="@id/tvDienTichDT"
-            android:id="@+id/tvTitleGiaPhongCT"
+            android:layout_below="@id/tvDienTichTimPhongDT"
+            android:id="@+id/tvTitleGiaPhongDT"
             android:textSize="18dp"
             android:textColor="#2c00f0"
             android:layout_width="wrap_content"
@@ -117,21 +116,21 @@
             android:text="Giá phòng: "/>
 
         <TextView
-            android:id="@+id/tvGiaPhongDT"
-            android:layout_toRightOf="@id/tvTitleGiaPhongCT"
+            android:id="@+id/tvGiaPhongTimPhongDT"
+            android:layout_toRightOf="@id/tvTitleGiaPhongDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvDienTichDT"
+            android:layout_below="@id/tvDienTichTimPhongDT"
             android:layout_marginTop="10dp"
             android:textColor="#eff59504"
             android:textSize="18dp"
-            android:text="2.000.000 Đồng"/>
+            android:text="2.000.000 VND"/>
 
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:layout_below="@id/tvGiaPhongDT"
-            android:id="@+id/tvTitleMoTa"
+            android:layout_below="@id/tvGiaPhongTimPhongDT"
+            android:id="@+id/tvTitleMoTaDT"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:textColor="#2c00f0"
@@ -139,11 +138,11 @@
             android:text="Mô tả:      "/>
 
         <TextView
-            android:id="@+id/tvMoTaDT"
-            android:layout_toRightOf="@id/tvTitleMoTa"
+            android:id="@+id/tvMoTaTimPhongDT"
+            android:layout_toRightOf="@id/tvTitleMoTaDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvGiaPhongDT"
+            android:layout_below="@id/tvGiaPhongTimPhongDT"
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:textColor="#2c00f0"
@@ -152,8 +151,8 @@
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
-            android:layout_below="@id/tvMoTaDT"
-            android:id="@+id/tvTitleLienHe"
+            android:layout_below="@id/tvMoTaTimPhongDT"
+            android:id="@+id/tvTitleLienHeDT"
             android:textSize="18dp"
             android:textColor="#2c00f0"
             android:layout_width="wrap_content"
@@ -161,39 +160,41 @@
             android:text="Liên hệ:      "/>
 
         <TextView
-            android:id="@+id/tvLienHeDT"
-            android:layout_toRightOf="@id/tvTitleLienHe"
+            android:id="@+id/tvLienHeTimPhongDT"
+            android:layout_toRightOf="@id/tvTitleLienHeDT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMoTaDT"
+            android:layout_below="@id/tvMoTaTimPhongDT"
             android:layout_marginTop="15dp"
             android:textColor="#2c00f0"
             android:textSize="18dp"
             android:text="0974908350"/>
 
         <Button
-            android:id="@+id/btnDuyetTin"
+            android:id="@+id/btnDuyetTinCanMuon"
             android:background="@color/colorPrimary"
             android:textColor="#fffefe"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvLienHeDT"
+            android:layout_below="@id/tvTitleLienHeDT"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:text="Duyệt tin"/>
 
         <Button
-            android:id="@+id/btnHuyTin"
+            android:id="@+id/btnHuyTinCanMuon"
             android:background="#ff0008"
             android:textColor="#fffefe"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/btnDuyetTin"
+            android:layout_below="@id/btnDuyetTinCanMuon"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:text="Hủy tin"/>
+
+
 
     </RelativeLayout>
 

@@ -1,6 +1,5 @@
 package vn.home.com.fragment;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,10 +14,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import vn.home.com.bottombar.DangKyActivity;
 import vn.home.com.bottombar.DangNhapActivity;
 import vn.home.com.bottombar.DangTinChoThueActivity;
-import vn.home.com.bottombar.DuyetTinChoMuonPhongTroActivity;
+import vn.home.com.bottombar.DuyetTinActivity;
 import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.R;
 
@@ -158,7 +153,7 @@ public class MenuFragment extends Fragment {
             btnDuyetTinCM.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(),DuyetTinChoMuonPhongTroActivity.class));
+                    startActivity(new Intent(getActivity(),DuyetTinActivity.class));
                 }
             });
         }
