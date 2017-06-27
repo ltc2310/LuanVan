@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="vn.home.com.bottombar.XemChiTietActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pagerSTCM"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicatorSTCM"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="240dp"
+            />
+
+        <TextView
+            android:id="@+id/tvThongTinSTCM"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/pagerSTCM"
+            android:text="Thông tin chi tiết"
+            android:textColor="#2c00f0"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/tvThongTinSTCM"
+            android:id="@+id/tvTenChuPhongTroSTCM"
+            android:textColor="#2c00f0"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lê Thành Công"/>
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#2c00f0"
+            android:layout_below="@id/tvTenChuPhongTroSTCM"
+            android:id="@+id/tvNgayDangSTCM"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày 11 Tháng 11 Năm 2016"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/tvTitleDiaChiSTCM"
+            android:textColor="#2c00f0"
+            android:textSize="18dp"
+            android:layout_below="@id/tvNgayDangSTCM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ:    "/>
+
+        <TextView
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:textColor="#2c00f0"
+            android:layout_marginRight="2dp"
+            android:layout_below="@id/tvNgayDangSTCM"
+            android:id="@+id/tvDiaChiSTCM"
+            android:layout_toRightOf="@id/tvTitleDiaChiSTCM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="637/33, Quang Trung, Phường 11, Quận Gò Vấp, TP. HCM"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:textColor="#2c00f0"
+            android:layout_below="@id/tvDiaChiSTCM"
+            android:id="@+id/tvTitleDienTichSTCM"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diện tích:   "/>
+
+        <TextView
+            android:id="@+id/tvDienTichSTCM"
+            android:layout_toRightOf="@id/tvTitleDienTichSTCM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2c00f0"
+            android:layout_below="@id/tvDiaChiSTCM"
+            android:layout_marginTop="4dp"
+            android:textSize="18dp"
+            android:text="30 mét vuông"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="9dp"
+            android:layout_below="@id/tvDienTichSTCM"
+            android:id="@+id/tvTitleGiaPhongCT"
+            android:textSize="18dp"
+            android:textColor="#2c00f0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá phòng: "/>
+
+        <TextView
+            android:id="@+id/tvGiaPhongSTCM"
+            android:layout_toRightOf="@id/tvTitleGiaPhongCT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDienTichSTCM"
+            android:layout_marginTop="10dp"
+            android:textColor="#eff59504"
+            android:textSize="18dp"
+            android:text="2.000.000 Đồng"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/tvGiaPhongSTCM"
+            android:id="@+id/tvTitleMoTaSTCM"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:textColor="#2c00f0"
+            android:layout_height="wrap_content"
+            android:text="Mô tả:      "/>
+
+        <TextView
+            android:id="@+id/tvMoTaSTCM"
+            android:layout_toRightOf="@id/tvTitleMoTaSTCM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGiaPhongSTCM"
+            android:layout_marginTop="15dp"
+            android:textSize="18dp"
+            android:textColor="#2c00f0"
+            android:text="phòng đẹp"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/tvMoTaSTCM"
+            android:id="@+id/tvTitleLienHeSTCM"
+            android:textSize="18dp"
+            android:textColor="#2c00f0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liên hệ:      "/>
+
+        <TextView
+            android:id="@+id/tvLienHeSTCM"
+            android:layout_toRightOf="@id/tvTitleLienHeSTCM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMoTaSTCM"
+            android:layout_marginTop="15dp"
+            android:textColor="#2c00f0"
+            android:textSize="18dp"
+            android:text="0974908350"/>
+
+        <Button
+            android:id="@+id/btnSuaTinCM"
+            android:background="@color/colorPrimary"
+            android:textColor="#fffefe"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvLienHeSTCM"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:text="Sửa tin cho mướn"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>

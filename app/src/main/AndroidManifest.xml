@@ -69,7 +69,12 @@
             android:label="@string/title_activity_gui_mail_nguoi_dung"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DuyetTinCanMuonActivity" />
-        <activity android:name=".GuiMailTuChoiTinCanMuonActivity"></activity>
+        <activity android:name=".GuiMailTuChoiTinCanMuonActivity" />
+        <activity android:name=".QuanLyActivity" />
+        <activity android:name=".SuaTinChoMuonActivity" />
+        <activity android:name=".ChiTietSuaTinChoMuonActivity" />
+        <activity android:name=".SuaTinCanMuonActivity" />
+        <activity android:name=".ChiTietSuaTinCanMuonActivity"></activity>
     </application>
 
 </manifest>

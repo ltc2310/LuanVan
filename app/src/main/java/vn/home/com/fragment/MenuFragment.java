@@ -18,6 +18,7 @@ import vn.home.com.bottombar.DangNhapActivity;
 import vn.home.com.bottombar.DangTinChoThueActivity;
 import vn.home.com.bottombar.DuyetTinActivity;
 import vn.home.com.bottombar.MainActivity;
+import vn.home.com.bottombar.QuanLyActivity;
 import vn.home.com.bottombar.R;
 
 /**
@@ -90,6 +91,7 @@ public class MenuFragment extends Fragment {
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
             Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
+            Button btnQuanLy = (Button) v.findViewById(R.id.btnQuanLyTin);
 
             btnNguoiDung.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -154,6 +156,13 @@ public class MenuFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getActivity(),DuyetTinActivity.class));
+                }
+            });
+
+            btnQuanLy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(),QuanLyActivity.class));
                 }
             });
         }
