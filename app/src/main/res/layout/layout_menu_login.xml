@@ -75,20 +75,8 @@
             android:layout_alignParentStart="true" />
 
         <Button
-            android:id="@+id/btnDuyeTinCM"
-            android:layout_below="@+id/btnThongTin"
-            android:background="#ffffff"
-            android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:paddingLeft="35dp"
-            android:drawablePadding="-150dp"
-            android:drawableLeft="@drawable/ic_approve"
-            android:text="Duyệt tin "/>
-
-        <Button
             android:id="@+id/btnQuanLyTin"
-            android:layout_below="@+id/btnDuyeTinCM"
+            android:layout_below="@+id/btnThongTin"
             android:background="#ffffff"
             android:layout_marginTop="10dp"
             android:layout_width="fill_parent"
@@ -110,6 +98,18 @@
             android:drawablePadding="-100dp"
             android:drawableLeft="@drawable/ic_exit"
             android:text="Thoát ứng dụng"/>
+
+        <Button
+            android:id="@+id/btnDuyeTinCM"
+            android:layout_below="@+id/btnThoat"
+            android:background="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="35dp"
+            android:drawablePadding="-150dp"
+            android:drawableLeft="@drawable/ic_approve"
+            android:text="Duyệt tin "/>
 
     </RelativeLayout>
 

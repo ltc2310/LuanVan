@@ -36,6 +36,9 @@ public class DuyetTinCanMuonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duyet_tin_can_muon);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Trở lại duyệt tin");
         addControls();
         addEvents();
         Intent intent = getIntent();

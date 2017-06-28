@@ -107,7 +107,7 @@
         android:id="@+id/progressBarLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnQuenMatKhau"
+        android:layout_below="@id/login_button"
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 

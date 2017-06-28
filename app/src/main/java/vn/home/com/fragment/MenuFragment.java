@@ -91,6 +91,13 @@ public class MenuFragment extends Fragment {
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
             Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
+            btnDuyetTinCM.setEnabled(false);
+            btnDuyetTinCM.setVisibility(View.INVISIBLE);
+            if (auth.getCurrentUser().getEmail().equals("thanhcong.dev@gmail.com")){
+                btnDuyetTinCM.setVisibility(View.VISIBLE);
+                btnDuyetTinCM.setEnabled(true);
+            }
+
             Button btnQuanLy = (Button) v.findViewById(R.id.btnQuanLyTin);
 
             btnNguoiDung.setOnClickListener(new View.OnClickListener() {

@@ -38,8 +38,10 @@ public class SuaTinChoMuonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sua_tin_cho_muon);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Trở lại quản lý");
         addControls();
-
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE");
         phongTro = (PhongTro) bundle.getSerializable("PHONGTRO");

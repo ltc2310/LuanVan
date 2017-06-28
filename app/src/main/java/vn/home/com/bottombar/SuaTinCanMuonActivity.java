@@ -26,8 +26,10 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sua_tin_can_muon);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Trở lại quản lý");
         addControls();
-
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE1");
         phongTro = (PhongTroCanMuon) bundle.getSerializable("PHONGTROCANMUON");
@@ -72,6 +74,8 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
         txtDienTich = (TextView) findViewById(R.id.tvDienTichTimPhongSuaCM);
         txtNgayDang = (TextView) findViewById(R.id.tvNgayDangTimPhongSuaCM);
         btnSuaTinCanMuon = (Button) findViewById(R.id.btnSuaCM);
+        btnSuaTinCanMuon.setVisibility(View.INVISIBLE);
+        btnSuaTinCanMuon.setEnabled(false);
     }
 
 
