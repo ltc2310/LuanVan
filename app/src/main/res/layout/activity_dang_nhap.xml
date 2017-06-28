@@ -10,13 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="vn.home.com.bottombar.DangNhapActivity">
 
-    <TextView
+    <!--<TextView-->
+        <!--android:id="@+id/titleDangNhap"-->
+        <!--android:text="Đăng nhập"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+
+    <ImageView
         android:id="@+id/titleDangNhap"
-        android:text="Đăng nhập"
-        android:textSize="35dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+        android:layout_width="500dp"
+        android:layout_height="100dp"
+        android:src="@drawable/phongtro"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilone"
