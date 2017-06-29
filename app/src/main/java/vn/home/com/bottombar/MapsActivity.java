@@ -1,7 +1,9 @@
 package vn.home.com.bottombar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -9,10 +11,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,6 +28,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +40,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import vn.home.com.model.PhongTro;
+import vn.home.com.model.PhongTroCanMuon;
 import vn.home.com.model.Route;
 import vn.home.com.utils.DirectionFinder;
 import vn.home.com.utils.DirectionFinderListener;
@@ -50,17 +58,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng loc;
     private Double banKinh, giaPhong, latLang, latLong;
     private String tinhDuocChon,quanDuocChon;
-    private String diaChi;
     private int dienTich;
     private String luaChon;
     private List<PhongTro> listPhongTro;
     private DatabaseReference mDatabase;
+    Geocoder geocoder;
+    private LatLng latLng;
+    private String diaChi;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        geocoder = new Geocoder(this, Locale.getDefault());
+
 
         luaChon = getIntent().getStringExtra("luachon");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -361,6 +373,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                         }
                     });
+                }else if(luaChon.equals("chontoado")) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 6));
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+
+                            diaChi=getDiaChiByLaLng(latLng);
+                            putPhongTroCanMuon(latLng,diaChi);
+
+
+                        }
+                    });
                 }
                 else {
                     mMap.addMarker(new MarkerOptions()
@@ -512,4 +536,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
     }
-}
+    public void putPhongTroCanMuon(final LatLng latLng, final String diaChi) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent intent = new Intent(MapsActivity.this, DangTinTimPhongActivity.class);
+                        intent.putExtra("diachi","diachidcchon");
+                        Bundle bundle = new Bundle();
+                        bundle.putString("diaChiTimDuoc", diaChi);
+                        bundle.putDouble("latitude", latLng.latitude);
+                        bundle.putDouble("longitude", latLng.longitude);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+
+
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn có chắc chắn muốn tìm xung quanh địa điểm này?")
+                .setPositiveButton("Có", dialogClickListener)
+                .setNegativeButton("Không", dialogClickListener).show();
+    }
+    public String getDiaChiByLaLng(LatLng latLng){
+        List<Address> addresses = new ArrayList<>();
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        android.location.Address address = addresses.get(0);
+
+        if (address != null) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
+                sb.append(address.getAddressLine(i) + " ");
+            }
+            return sb.toString();
+        }
+        return null;
+    }
+
+    }
+
+

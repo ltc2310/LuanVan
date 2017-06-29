@@ -59,7 +59,20 @@
                 android:hint="Địa chỉ cần tìm phòng"
                 android:background="#fafacf"/>
 
+            <Button
+                android:id="@+id/btnChonDiaChiCanTim"
+                android:background="@color/colorPrimary"
+                android:textColor="#fffefe"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/edtDiaChiCanTim"
+                android:layout_width="340dp"
+                android:layout_height="50dp"
+                android:text="Chọn khu vực cần tìm"/>
+
         </RelativeLayout>
+
 
         <TextView
             android:layout_marginTop="20dp"
@@ -79,10 +92,31 @@
             android:layout_below="@+id/tvTitleThongCoBan"
             android:background="#fcfcf9">
 
+            <TextView
+                android:id="@+id/tvBanKinhCT"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+
+                android:gravity="center_vertical"
+                android:text="Bán kính: Tối đa"
+                android:background="#fafacf"
+
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/sbBanKinhCT"
+                android:layout_width="match_parent"
+                android:layout_below="@id/tvBanKinhCT"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="#fafacf" />
+
+
             <EditText
                 android:layout_marginTop="10dp"
                 android:id="@+id/edtGiaPhongMin"
                 android:layout_width="match_parent"
+                android:layout_below="@id/sbBanKinhCT"
                 android:layout_height="30dp"
                 android:paddingLeft="20dp"
                 android:hint="Giá phòng từ: 2000000 VNĐ"

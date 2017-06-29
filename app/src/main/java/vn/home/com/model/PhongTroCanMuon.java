@@ -19,12 +19,16 @@ public class PhongTroCanMuon implements Serializable {
     public boolean kichHoat;
     public String emailPhongTroCM;
     public String idPhongTroCM;
+    public Double latitude;
+    public Double longitude;
+    public Double banKinh;
 
     public PhongTroCanMuon() {
     }
 
     public PhongTroCanMuon(String tenNguoiDung, String diaChi, Integer dienTich, Double giaPhongMin, Double giaPhongMax,
-                           String sdt, String moTa, String ngayDang, boolean kichHoat, String emailPhongTroCM, String idPhongTroCM) {
+                           String sdt, String moTa, String ngayDang, boolean kichHoat,
+                           String emailPhongTroCM, String idPhongTroCM,Double latitude, Double longitude, Double banKinh) {
         this.tenNguoiDung = tenNguoiDung;
         this.diaChi = diaChi;
         this.dienTich = dienTich;
@@ -36,5 +40,8 @@ public class PhongTroCanMuon implements Serializable {
         this.kichHoat = kichHoat;
         this.emailPhongTroCM = emailPhongTroCM;
         this.idPhongTroCM = idPhongTroCM;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.banKinh = banKinh;
     }
 }

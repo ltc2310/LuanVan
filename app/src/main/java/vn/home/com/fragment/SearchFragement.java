@@ -619,11 +619,11 @@ public class SearchFragement extends Fragment{
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MapsActivity.class);
                 intent.putExtra("luachon", "xungquanh");
-                Bundle bundle = new Bundle();
-                bundle.putDouble("bankinh", banKinh);
-                bundle.putDouble("giaphong", giaPhong);
-                bundle.putInt("dientich", dienTich);
-                intent.putExtras(bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putDouble("bankinh", banKinh);
+//                bundle.putDouble("giaphong", giaPhong);
+//                bundle.putInt("dientich", dienTich);
+//                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

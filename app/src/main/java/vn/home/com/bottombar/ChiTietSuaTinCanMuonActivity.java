@@ -110,14 +110,14 @@ public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
 
         String key = phongTroCanMuon.idPhongTroCM;
 
-        DatabaseReference phongtroRef = databaseReference.child("cantim");
-        Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
-        phongtroUpdate.put( key, new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Integer.parseInt(dienTich),
-                Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email, key ));
-        phongtroRef.getRef().updateChildren(phongtroUpdate);
-
-        Toast.makeText(ChiTietSuaTinCanMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(ChiTietSuaTinCanMuonActivity.this,QuanLyActivity.class));
+//        DatabaseReference phongtroRef = databaseReference.child("cantim");
+//        Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
+//        phongtroUpdate.put( key, new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Integer.parseInt(dienTich),
+//                Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email, key ));
+//        phongtroRef.getRef().updateChildren(phongtroUpdate);
+//
+//        Toast.makeText(ChiTietSuaTinCanMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();
+//        startActivity(new Intent(ChiTietSuaTinCanMuonActivity.this,QuanLyActivity.class));
 
     }
 
