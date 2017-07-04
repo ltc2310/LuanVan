@@ -183,6 +183,18 @@
             android:layout_height="50dp"
             android:text="Sửa tin cho mướn"/>
 
+        <Button
+            android:id="@+id/btnDaCoNguoiThue"
+            android:background="@color/colorPrimary"
+            android:textColor="#fffefe"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btnSuaTinCM"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:text="Đã có người thuê"/>
+
 
     </RelativeLayout>
 

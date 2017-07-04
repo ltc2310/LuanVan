@@ -195,7 +195,7 @@ public class DangTinChoThueActivity extends AppCompatActivity {
 
         databaseReference.child("phongtro").child(key).setValue(new PhongTro(
                 hoTen, latLng.latitude, latLng.longitude, new DiaChi(quanDuocChon, tinhDuocChon, diaChiChiTiet),
-                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false, email, key
+                Double.parseDouble(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false, email, key, false
         )).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

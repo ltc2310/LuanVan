@@ -29,9 +29,11 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import vn.home.com.bottombar.MainActivity;
@@ -109,7 +111,13 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         btnLike = (ImageButton) row.findViewById(R.id.btnLike);
 
         final PhongTro phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhong + " VNĐ");
+
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhong = currencyFormatter.format(phongTro.giaPhong);
+
+        txtGia.setText(giaPhong);
+
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " + phongTro.diaChi.thanhPho);
         if (phongTro.linkHinh != null) {

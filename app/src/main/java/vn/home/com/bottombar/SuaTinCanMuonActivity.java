@@ -7,6 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -17,10 +24,12 @@ import vn.home.com.model.PhongTroCanMuon;
 public class SuaTinCanMuonActivity extends AppCompatActivity {
 
     TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang ;
-    Button btnSuaTinCanMuon;
+    Button btnSuaTinCanMuon, btnDaTimDuocPhong;
     PhongTroCanMuon phongTro;
     private static ViewPager mPager;
     private static int currentPage = 0;
+    private DatabaseReference databaseReference;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +56,16 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicatorSuaCM);
         indicator.setViewPager(mPager);
 
+        id = phongTro.idPhongTroCM;
+
         if (phongTro.kichHoat == false){
             btnSuaTinCanMuon.setVisibility(View.VISIBLE);
             btnSuaTinCanMuon.setEnabled(true);
+        }
+
+        if (phongTro.kichHoat == true && phongTro.ngungDangTinCM == false){
+            btnDaTimDuocPhong.setVisibility(View.VISIBLE);
+            btnDaTimDuocPhong.setEnabled(true);
         }
 
         btnSuaTinCanMuon.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +76,25 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
                 bundle.putSerializable("PHONGTROCANMUON", phongTro);
                 intent.putExtra("PHONGTRO_CANMUON_BUNDLE", bundle);
                 startActivity(intent);
+            }
+        });
+
+        btnDaTimDuocPhong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference.child("cantim").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().child("ngungDangTin").setValue(true);
+                        Toast.makeText(SuaTinCanMuonActivity.this, "Tin của bạn đã được dừng đăng", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SuaTinCanMuonActivity.this, QuanLyActivity.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }
@@ -76,8 +111,11 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
         btnSuaTinCanMuon = (Button) findViewById(R.id.btnSuaCM);
         btnSuaTinCanMuon.setVisibility(View.INVISIBLE);
         btnSuaTinCanMuon.setEnabled(false);
+        btnDaTimDuocPhong = (Button) findViewById(R.id.btnDaTimDuocPhong);
+        btnDaTimDuocPhong.setVisibility(View.INVISIBLE);
+        btnDaTimDuocPhong.setEnabled(false);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
     }
-
-
 
 }

@@ -244,7 +244,7 @@ public class ChiTietSuaTinChoMuonActivity extends AppCompatActivity {
         DatabaseReference phongtroRef = databaseReference.child("phongtro");
         Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
         phongtroUpdate.put( key, new PhongTro( hoTen, latLng.latitude, latLng.longitude, new DiaChi(quanDuocChon, tinhDuocChon, diaChiChiTiet),
-                Integer.parseInt(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false, email, key ));
+                Double.parseDouble(dienTich), Double.parseDouble(giaPhongTro), soDt, moTa, currentDate, arrHinh, false, email, key, false ));
         phongtroRef.getRef().updateChildren(phongtroUpdate);
 
         Toast.makeText(ChiTietSuaTinChoMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();

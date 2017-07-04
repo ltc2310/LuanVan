@@ -241,8 +241,8 @@ public class DangTinTimPhongActivity extends AppCompatActivity {
 
         String key = databaseReference.push().getKey();
 
-        databaseReference.child("cantim").child(key).setValue(new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Integer.parseInt(dienTich),
-                Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email, key, latitude, longitude, banKinh )).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child("cantim").child(key).setValue(new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Double.parseDouble(dienTich),
+                Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email, key, latitude, longitude, banKinh, false )).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Intent intent = new Intent(DangTinTimPhongActivity.this, MainActivity.class);

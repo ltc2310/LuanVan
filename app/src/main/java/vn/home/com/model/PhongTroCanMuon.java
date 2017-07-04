@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class PhongTroCanMuon implements Serializable {
     public String tenNguoiDung;
     public String diaChi;
-    public Integer dienTich;
+    public Double dienTich;
     public Double giaPhongMin;
     public Double giaPhongMax;
     public String sdt;
@@ -22,13 +22,15 @@ public class PhongTroCanMuon implements Serializable {
     public Double latitude;
     public Double longitude;
     public Double banKinh;
+    public boolean ngungDangTinCM;
 
     public PhongTroCanMuon() {
     }
 
-    public PhongTroCanMuon(String tenNguoiDung, String diaChi, Integer dienTich, Double giaPhongMin, Double giaPhongMax,
+    public PhongTroCanMuon(String tenNguoiDung, String diaChi, Double dienTich, Double giaPhongMin, Double giaPhongMax,
                            String sdt, String moTa, String ngayDang, boolean kichHoat,
-                           String emailPhongTroCM, String idPhongTroCM,Double latitude, Double longitude, Double banKinh) {
+                           String emailPhongTroCM, String idPhongTroCM,Double latitude,
+                           Double longitude, Double banKinh, boolean ngungDangTinCM) {
         this.tenNguoiDung = tenNguoiDung;
         this.diaChi = diaChi;
         this.dienTich = dienTich;
@@ -43,5 +45,6 @@ public class PhongTroCanMuon implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.banKinh = banKinh;
+        this.ngungDangTinCM = ngungDangTinCM;
     }
 }

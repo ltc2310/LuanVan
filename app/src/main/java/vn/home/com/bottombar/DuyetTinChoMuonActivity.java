@@ -17,21 +17,38 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 import vn.home.com.adapter.MyAdapter;
+import vn.home.com.model.DiaChi;
 import vn.home.com.model.PhongTro;
 
 public class DuyetTinChoMuonActivity extends AppCompatActivity {
-    private TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang ;
+    private TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang;
     private Button btnDuyetTin, btnHuyTin;
     private PhongTro phongTro;
     private static ViewPager mPager;
     private static int currentPage = 0;
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
+
+    private String tenNguoiDung, quan, thanhPho, diaChiChiTiet;
+    private Double latitude;
+    private Double longtitue;
+    private Double dienTich;
+    private Double giaPhong;
+    private String sdt;
+    private String moTa;
+    private String ngayDang;
+    private ArrayList<String> linkHinh;
+    private String email;
+    private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +60,7 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE");
         phongTro = (PhongTro) bundle.getSerializable("PHONGTRO");
-        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + " ,"+ phongTro.diaChi.quan + " ," + phongTro.diaChi.thanhPho);
+        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + " ," + phongTro.diaChi.quan + " ," + phongTro.diaChi.thanhPho);
         txtGia.setText(phongTro.giaPhong.toString() + " VNĐ");
         txtMoTa.setText(phongTro.moTa);
         txtNguoiDung.setText(phongTro.tenNguoiDung);
@@ -74,24 +91,34 @@ public class DuyetTinChoMuonActivity extends AppCompatActivity {
         }, 2500, 2500);
 
 
-       btnDuyetTin.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-             databaseReference.child("phongtro").child(phongTro.id).addListenerForSingleValueEvent(new ValueEventListener() {
-                 @Override
-                 public void onDataChange(DataSnapshot dataSnapshot) {
-                     dataSnapshot.getRef().child("kichHoat").setValue(true);
-                     Toast.makeText(DuyetTinChoMuonActivity.this, "Tin được duyệt thành công", Toast.LENGTH_SHORT).show();
-                     startActivity(new Intent(DuyetTinChoMuonActivity.this, DuyetTinActivity.class));
-                 }
+        tenNguoiDung = phongTro.tenNguoiDung;
+        latitude = phongTro.latitude;
+        longtitue = phongTro.longtitue;
+        quan = phongTro.diaChi.quan;
+        thanhPho = phongTro.diaChi.thanhPho;
+        diaChiChiTiet = phongTro.diaChi.diaChiChiTiet;
+        dienTich = phongTro.dienTich;
+        giaPhong = phongTro.giaPhong;
+        sdt = phongTro.sdt;
+        moTa = phongTro.moTa;
+        ngayDang = phongTro.ngayDang;
+        linkHinh = phongTro.linkHinh;
+        email = phongTro.email;
+        key = phongTro.id;
 
-                 @Override
-                 public void onCancelled(DatabaseError databaseError) {
+        btnDuyetTin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference phongtroRef = databaseReference.child("phongtro");
+                Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
+                phongtroUpdate.put(key, new PhongTro(tenNguoiDung, latitude, longtitue, new DiaChi(quan, thanhPho, diaChiChiTiet),
+                        dienTich, giaPhong, sdt, moTa, ngayDang, linkHinh, true, email, key, false));
+                phongtroRef.getRef().updateChildren(phongtroUpdate);
 
-                 }
-             });
-           }
-       });
+                Toast.makeText(DuyetTinChoMuonActivity.this, "Tin được duyệt thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DuyetTinChoMuonActivity.this, DuyetTinActivity.class));
+            }
+        });
 
         btnHuyTin.setOnClickListener(new View.OnClickListener() {
             @Override

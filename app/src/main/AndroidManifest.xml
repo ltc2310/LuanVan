@@ -52,7 +52,11 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".DuyetTinActivity" />
+        <activity android:name=".DuyetTinActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".DuyetTinChoMuonActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -74,7 +78,11 @@
                 android:value=".DuyetTinActivity" />
         </activity>
         <activity android:name=".GuiMailTuChoiTinCanMuonActivity" />
-        <activity android:name=".QuanLyActivity" />
+        <activity android:name=".QuanLyActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".SuaTinChoMuonActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

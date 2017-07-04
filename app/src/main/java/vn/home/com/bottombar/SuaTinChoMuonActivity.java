@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,12 +28,13 @@ import vn.home.com.model.PhongTro;
 public class SuaTinChoMuonActivity extends AppCompatActivity {
 
     private TextView txtNguoiDung, txtMoTa, txtGia, txtDiaChi, txtLienLac, txtDienTich, txtNgayDang ;
-    private Button btnSuaTinCM;
+    private Button btnSuaTinCM, btnDaCoNguoiThue;
     private PhongTro phongTro;
     private static ViewPager mPager;
     private static int currentPage = 0;
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class SuaTinChoMuonActivity extends AppCompatActivity {
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicatorSTCM);
         indicator.setViewPager(mPager);
 
+        id = phongTro.id;
+
         // Auto start of viewpager
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
@@ -80,6 +84,11 @@ public class SuaTinChoMuonActivity extends AppCompatActivity {
             btnSuaTinCM.setEnabled(true);
         }
 
+        if (phongTro.kichHoat==true && phongTro.ngungDangTin == false){
+            btnDaCoNguoiThue.setVisibility(View.VISIBLE);
+            btnDaCoNguoiThue.setEnabled(true);
+        }
+
         btnSuaTinCM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +97,25 @@ public class SuaTinChoMuonActivity extends AppCompatActivity {
                 bundle.putSerializable("PHONGTRO", phongTro);
                 intent.putExtra("PHONGTRO_BUNDLE", bundle);
                 startActivity(intent);
+            }
+        });
+
+        btnDaCoNguoiThue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference.child("phongtro").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().child("ngungDangTin").setValue(true);
+                        Toast.makeText(SuaTinChoMuonActivity.this, "Tin của bạn đã được dừng đăng", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SuaTinChoMuonActivity.this, QuanLyActivity.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -103,9 +131,14 @@ public class SuaTinChoMuonActivity extends AppCompatActivity {
         txtDienTich = (TextView) findViewById(R.id.tvDienTichSTCM);
         txtNgayDang = (TextView) findViewById(R.id.tvNgayDangSTCM);
         btnSuaTinCM = (Button) findViewById(R.id.btnSuaTinCM);
+        btnDaCoNguoiThue = (Button) findViewById(R.id.btnDaCoNguoiThue);
         auth = FirebaseAuth.getInstance();
         btnSuaTinCM.setVisibility(View.INVISIBLE);
         btnSuaTinCM.setEnabled(false);
+
+        btnDaCoNguoiThue.setVisibility(View.INVISIBLE);
+        btnDaCoNguoiThue.setEnabled(false);
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 }

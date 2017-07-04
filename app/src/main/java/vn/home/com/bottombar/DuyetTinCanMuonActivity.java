@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 import vn.home.com.adapter.MyAdapter;
@@ -31,6 +33,8 @@ public class DuyetTinCanMuonActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
     private static int currentPage = 0;
+    private String ten, diaChi, key, sdt, moTa, email, ngayDang;
+    private Double  giaPhongMin, giaPhongMax, longtitue, latitue, banKinh, dienTich;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,6 @@ public class DuyetTinCanMuonActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Trở lại duyệt tin");
         addControls();
-        addEvents();
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE1");
         phongTro = (PhongTroCanMuon) bundle.getSerializable("PHONGTROCANMUON");
@@ -57,25 +60,39 @@ public class DuyetTinCanMuonActivity extends AppCompatActivity {
         mPager.setAdapter(new MyAdapter(DuyetTinCanMuonActivity.this, hinhCanTim));
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicatorDT);
         indicator.setViewPager(mPager);
+        //ten, diaChi, key, giaPhongMin, giaPhongMax, banKinh, sdt, moTa, longtitue, lattitue, email, ngayDang, dienTich
+        ten = phongTro.tenNguoiDung;
+        email = phongTro.emailPhongTroCM;
+        ngayDang = phongTro.ngayDang;
+        key = phongTro.idPhongTroCM;
+        diaChi = phongTro.diaChi;
+        giaPhongMin = phongTro.giaPhongMin;
+        giaPhongMax = phongTro.giaPhongMax;
+        email = phongTro.emailPhongTroCM;
+        sdt = phongTro.sdt;
+        longtitue = phongTro.longitude;
+        latitue = phongTro.latitude;
+        moTa = phongTro.moTa;
+        banKinh = phongTro.banKinh;
+        dienTich = phongTro.dienTich;
+
+
+        addEvents();
     }
 
     private void addEvents() {
         btnDuyetTinCanMuon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.child("cantim").child(phongTro.idPhongTroCM).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("kichHoat").setValue(true);
-                        Toast.makeText(DuyetTinCanMuonActivity.this, "Tin được duyệt thành công", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(DuyetTinCanMuonActivity.this, DuyetTinActivity.class));
-                    }
+                DatabaseReference phongtroRef = databaseReference.child("cantim");
+                Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
+                phongtroUpdate.put( key, new PhongTroCanMuon(ten, diaChi, dienTich,
+                        giaPhongMin, giaPhongMax, sdt, moTa, ngayDang, true, email,
+                        key, latitue, longtitue, banKinh, false  ));
+                phongtroRef.getRef().updateChildren(phongtroUpdate);
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                Toast.makeText(DuyetTinCanMuonActivity.this, "Tin dã được duyệt thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DuyetTinCanMuonActivity.this,DuyetTinActivity.class));
             }
         });
 

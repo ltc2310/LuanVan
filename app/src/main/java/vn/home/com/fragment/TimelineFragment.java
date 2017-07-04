@@ -99,7 +99,7 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PhongTro phongTro = dataSnapshot.getValue(PhongTro.class);
-                if (phongTro.kichHoat == true){
+                if (phongTro.kichHoat == true && phongTro.ngungDangTin == false){
                     dsPhongTro.add(phongTro);
                     phongTroAdapter = new PhongTroAdapter(getActivity(), R.layout.item, dsPhongTro);
                     lvTimeLine.setAdapter(phongTroAdapter);
@@ -159,7 +159,7 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PhongTroCanMuon phongTroCanMuon = dataSnapshot.getValue(PhongTroCanMuon.class);
-                if (phongTroCanMuon.kichHoat == true){
+                if (phongTroCanMuon.kichHoat == true && phongTroCanMuon.ngungDangTinCM == false){
                     dsPhongTroCanTim.add(phongTroCanMuon);
                     phongTroCanMuonAdapter = new PhongTroCanMuonAdapter(getActivity(), R.layout.item_canmuon, dsPhongTroCanTim);
                     lvTimeLine1.setAdapter(phongTroCanMuonAdapter);

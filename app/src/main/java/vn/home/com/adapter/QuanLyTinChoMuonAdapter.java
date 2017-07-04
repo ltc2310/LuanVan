@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import vn.home.com.bottombar.R;
 import vn.home.com.model.PhongTro;
@@ -44,16 +46,30 @@ public class QuanLyTinChoMuonAdapter extends ArrayAdapter<PhongTro> {
 
 
         final PhongTro phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhong + " VNĐ");
+
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
-        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " +phongTro.diaChi.thanhPho);
+        txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " + phongTro.diaChi.thanhPho);
         txtNgayDang.setText(phongTro.ngayDang);
-        if (phongTro.kichHoat == true){
-            txtTrangThai.setText("Tin đã được đăng");
-            txtTrangThai.setTextColor(Color.GREEN);
-        }else {
+
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhong = currencyFormatter.format(phongTro.giaPhong);
+
+        txtGia.setText(giaPhong);
+
+        if (phongTro.kichHoat == false) {
             txtTrangThai.setText("Tin đang chờ duyệt");
             txtTrangThai.setTextColor(Color.RED);
+        }
+
+        if (phongTro.kichHoat == true && phongTro.ngungDangTin == false) {
+            txtTrangThai.setText("Tin đang được đăng");
+            txtTrangThai.setTextColor(Color.GREEN);
+        }
+
+        if (phongTro.kichHoat == true && phongTro.ngungDangTin == true) {
+            txtTrangThai.setText("Tin đã dừng đăng");
+            txtTrangThai.setTextColor(Color.GRAY);
         }
         return row;
     }

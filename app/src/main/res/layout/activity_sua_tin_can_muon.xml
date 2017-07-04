@@ -172,16 +172,28 @@
 
 
         <Button
-            android:id="@+id/btnSuaCM"
+        android:id="@+id/btnSuaCM"
+        android:background="@color/colorPrimary"
+        android:textColor="#fffefe"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvLienHeTimPhongSuaCM"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:text="Sửa tin cần mướn"/>
+
+        <Button
+            android:id="@+id/btnDaTimDuocPhong"
             android:background="@color/colorPrimary"
             android:textColor="#fffefe"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvLienHeTimPhongSuaCM"
+            android:layout_below="@id/btnSuaCM"
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:text="Sửa tin cần mướn"/>
+            android:text="Đã tìm được phòng"/>
 
 
 

@@ -1,16 +1,15 @@
 package vn.home.com.bottombar;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -22,18 +21,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.home.com.model.DiaChi;
-import vn.home.com.model.PhongTro;
 import vn.home.com.model.PhongTroCanMuon;
 
 public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
     private EditText edtDiaChiCanTim, edtGiaPhongMin, edtGiaPhongMax, edtDienTichPhongCanTim,
             edtMoTaCanTim, edtSoDtCanTim, edtHotenCanTim;
-    private Button btnSuaTinCanTim;
-    private  PhongTroCanMuon phongTroCanMuon;
+    private SeekBar sbBanKinhSuaTinCT;
+    private TextView tvBanKinhSuaTinCT;
+    private Double banKinhSuaTinCT;
+    private Button btnSuaTinCanTim, btnSuaDCCT;
+    private PhongTroCanMuon phongTroCanMuon;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
+
+    String luaChonSuaTin;
+    Double latitudeSuaTin;
+    Double longitudeSuaTin;
+    String diaChiSuaTin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,130 @@ public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 xuLyDangTinCanTimPhongTro();
+            }
+        });
+
+        btnSuaDCCT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChiTietSuaTinCanMuonActivity.this, MapsActivity.class);
+                intent.putExtra("luachon", "chontoado");
+                startActivity(intent);
+            }
+        });
+
+        luaChonSuaTin = getIntent().getStringExtra("diachi");
+
+        if (luaChonSuaTin !=null){
+            if (luaChonSuaTin.equals("diachidcchon")) {
+                Bundle bundle = getIntent().getExtras();
+                latitudeSuaTin = bundle.getDouble("latitude",0);
+                longitudeSuaTin = bundle.getDouble("longitude",0);
+                diaChiSuaTin=bundle.getString("diaChiTimDuoc","");
+            }
+            edtDiaChiCanTim.setText(diaChiSuaTin);
+        }
+
+        sbBanKinhSuaTinCT.setMax(20);
+        sbBanKinhSuaTinCT.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                switch (i) {
+                    case 0:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 1 km");
+                        banKinhSuaTinCT = 1D;
+                        break;
+                    case 1:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 2 km");
+                        banKinhSuaTinCT = 2D;
+                        break;
+                    case 2:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 3 km");
+                        banKinhSuaTinCT = 3D;
+                        break;
+                    case 3:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 4 km");
+                        banKinhSuaTinCT = 4D;
+                        break;
+                    case 4:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 5 km");
+                        banKinhSuaTinCT = 5D;
+                        break;
+                    case 5:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 6 km");
+                        banKinhSuaTinCT = 6D;
+                        break;
+                    case 6:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 7 km");
+                        banKinhSuaTinCT = 7D;
+                        break;
+                    case 7:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 8 km");
+                        banKinhSuaTinCT = 8D;
+                        break;
+                    case 8:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 9 km");
+                        banKinhSuaTinCT = 9D;
+                        break;
+                    case 9:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 10 km");
+                        banKinhSuaTinCT = 10D;
+                        break;
+                    case 10:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 11 km");
+                        banKinhSuaTinCT = 11D;
+                        break;
+                    case 11:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 12 km");
+                        banKinhSuaTinCT = 12D;
+                        break;
+                    case 12:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 13 km");
+                        banKinhSuaTinCT = 13D;
+                        break;
+                    case 13:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 14 km");
+                        banKinhSuaTinCT = 14D;
+                        break;
+                    case 14:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 15 km");
+                        banKinhSuaTinCT = 15D;
+                        break;
+                    case 15:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 16 km");
+                        banKinhSuaTinCT = 16D;
+                        break;
+                    case 16:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 17 km");
+                        banKinhSuaTinCT = 17D;
+                        break;
+                    case 17:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 18 km");
+                        banKinhSuaTinCT = 18D;
+                        break;
+                    case 18:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 19 km");
+                        banKinhSuaTinCT = 19D;
+                        break;
+                    case 19:
+                        tvBanKinhSuaTinCT.setText("Bán kính: 20 km");
+                        banKinhSuaTinCT = 20D;
+                        break;
+                    default:
+                        tvBanKinhSuaTinCT.setText("Bán kính: tối đa");
+                        banKinhSuaTinCT = 20D;
+                        break;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
@@ -110,14 +239,28 @@ public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
 
         String key = phongTroCanMuon.idPhongTroCM;
 
-//        DatabaseReference phongtroRef = databaseReference.child("cantim");
-//        Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
-//        phongtroUpdate.put( key, new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Integer.parseInt(dienTich),
-//                Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email, key ));
-//        phongtroRef.getRef().updateChildren(phongtroUpdate);
-//
-//        Toast.makeText(ChiTietSuaTinCanMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(ChiTietSuaTinCanMuonActivity.this,QuanLyActivity.class));
+        if (latitudeSuaTin != null){
+            DatabaseReference phongtroRef = databaseReference.child("cantim");
+            Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
+            phongtroUpdate.put( key, new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Double.parseDouble(dienTich),
+                    Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email,
+                    key, latitudeSuaTin, longitudeSuaTin, banKinhSuaTinCT, false  ));
+            phongtroRef.getRef().updateChildren(phongtroUpdate);
+
+            Toast.makeText(ChiTietSuaTinCanMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ChiTietSuaTinCanMuonActivity.this,QuanLyActivity.class));
+        }
+        else {
+            DatabaseReference phongtroRef = databaseReference.child("cantim");
+            Map<String, Object> phongtroUpdate = new HashMap<String, Object>();
+            phongtroUpdate.put( key, new PhongTroCanMuon(tenNguoiTim, diaChiCanTim, Double.parseDouble(dienTich),
+                    Double.parseDouble(giaPhongMin), Double.parseDouble(giaPhongMax), sdt, moTa, currentDate, false, email,
+                    key, phongTroCanMuon.latitude, phongTroCanMuon.longitude, banKinhSuaTinCT, false  ));
+            phongtroRef.getRef().updateChildren(phongtroUpdate);
+
+            Toast.makeText(ChiTietSuaTinCanMuonActivity.this, "Cập nhật tin thành công", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ChiTietSuaTinCanMuonActivity.this,QuanLyActivity.class));
+        }
 
     }
 
@@ -130,8 +273,10 @@ public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
         edtSoDtCanTim = (EditText) findViewById(R.id.edtSoDtSuaTinCT);
         edtHotenCanTim = (EditText) findViewById(R.id.edtHotenSuaTinCT);
         btnSuaTinCanTim = (Button) findViewById(R.id.btnSuaTinCanTim);
+        btnSuaDCCT = (Button) findViewById(R.id.btnSuaDCCT);
+        sbBanKinhSuaTinCT = (SeekBar) findViewById(R.id.sbBanKinhSuaTinCT);
+        tvBanKinhSuaTinCT = (TextView) findViewById(R.id.tvBanKinhSuaTinCT);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
-
     }
 }

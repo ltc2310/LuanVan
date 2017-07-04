@@ -39,6 +39,9 @@ public class QuanLyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Trở lại");
 
         lvQuanLyChoMuon = (ListView) findViewById(R.id.lvQuanLyChoMuon);
         mDatabase = FirebaseDatabase.getInstance().getReference();

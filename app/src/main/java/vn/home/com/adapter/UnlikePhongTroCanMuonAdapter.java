@@ -20,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import vn.home.com.bottombar.R;
@@ -63,7 +65,14 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         final PhongTroCanMuon phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhongMin + " VNĐ" + " - " + phongTro.giaPhongMax + " VNĐ");
+
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhongMin =  currencyFormatter.format(phongTro.giaPhongMin);
+        String giaPhongMax = currencyFormatter.format(phongTro.giaPhongMax);
+
+        txtGia.setText(giaPhongMin + " - " + giaPhongMax);
+
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
         txtDiaChi.setText(phongTro.diaChi);
         txtNgayDang.setText(phongTro.ngayDang);

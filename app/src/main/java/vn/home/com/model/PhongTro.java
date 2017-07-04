@@ -13,7 +13,7 @@ public class PhongTro implements Serializable {
     public Double latitude;
     public Double longtitue;
     public DiaChi diaChi;
-    public Integer dienTich;
+    public Double dienTich;
     public Double giaPhong;
     public String sdt;
     public String moTa;
@@ -22,10 +22,11 @@ public class PhongTro implements Serializable {
     public boolean kichHoat;
     public String email;
     public String id;
+    public boolean ngungDangTin;
 
     public PhongTro(String tenNguoiDung, Double latitude, Double longtitue, DiaChi diaChi,
-                    Integer dienTich, Double giaPhong, String sdt, String moTa, String ngayDang,
-                    ArrayList<String> linkHinh, boolean kichHoat, String email, String id) {
+                    Double dienTich, Double giaPhong, String sdt, String moTa, String ngayDang,
+                    ArrayList<String> linkHinh, boolean kichHoat, String email, String id, boolean ngungDangTin) {
 
         this.tenNguoiDung = tenNguoiDung;
         this.latitude = latitude;
@@ -40,6 +41,7 @@ public class PhongTro implements Serializable {
         this.kichHoat = kichHoat;
         this.email = email;
         this.id = id;
+        this.ngungDangTin = ngungDangTin;
     }
 
     public PhongTro(PhongTro phongTro) {

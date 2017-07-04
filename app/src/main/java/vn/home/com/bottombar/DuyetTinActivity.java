@@ -36,6 +36,9 @@ public class DuyetTinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duyet_tin);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Trở lại");
         lvDuyetTinDang = (ListView) findViewById(R.id.lvDuyetTinDang);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         dsPhongTro = new ArrayList<>();
@@ -63,7 +66,7 @@ public class DuyetTinActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PhongTro phongTro = dataSnapshot.getValue(PhongTro.class);
-                if (phongTro.kichHoat == false){
+                if (phongTro.kichHoat == false && phongTro.ngungDangTin == false){
                     dsPhongTro.add(phongTro);
                     duyetTinChoMuonAdapter = new DuyetTinChoMuonAdapter(DuyetTinActivity.this, R.layout.itemduyettinchomuon, dsPhongTro);
                     lvDuyetTinDang.setAdapter(duyetTinChoMuonAdapter);
@@ -107,7 +110,7 @@ public class DuyetTinActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PhongTroCanMuon phongTroCanMuon = dataSnapshot.getValue(PhongTroCanMuon.class);
-                if (phongTroCanMuon.kichHoat == false){
+                if (phongTroCanMuon.kichHoat == false && phongTroCanMuon.ngungDangTinCM == false){
                     dsPhongTroCanMuon.add(phongTroCanMuon);
                     duyetTinCanMuonAdapter = new DuyetTinCanMuonAdapter(DuyetTinActivity.this, R.layout.itemduyettinchomuon, dsPhongTroCanMuon);
                     lvDuyetTinDang2.setAdapter(duyetTinCanMuonAdapter);

@@ -1,12 +1,16 @@
 package vn.home.com.bottombar;
 
+import android.*;
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -30,7 +34,7 @@ import vn.home.com.fragment.SearchFragement;
 import vn.home.com.fragment.TimelineFragment;
 import vn.home.com.model.NguoiDung;
 import vn.home.com.model.PhongTro;
-import vn.home.com.model.PhongTroYeuThich;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,13 +50,30 @@ public class MainActivity extends AppCompatActivity {
     static long sizeAfter=0;
     static PhongTro data;
 
+    private static final String[] STORAGE_PERMISSIONS = {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+    private static final String[] LOCATION_PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+
+    private static final String[] INTERNET_PERMISSIONS = {
+            Manifest.permission.INTERNET
+    };
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        auth = FirebaseAuth.getInstance();
 
+        xacThucQuyenTruyCap();
+
+        auth = FirebaseAuth.getInstance();
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -160,6 +181,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void xacThucQuyenTruyCap() {
+        int permissionInternet = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.INTERNET);
+
+        int permissionExternalMemory = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        int permissionLocation = ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permissionInternet != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, INTERNET_PERMISSIONS, 1);
+        }
+
+        if (permissionLocation != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, LOCATION_PERMISSIONS, 1);
+        }
+
+        if (permissionExternalMemory != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, STORAGE_PERMISSIONS, 1);
+        }
     }
 
     private void createNotifications(PhongTro phongTro) {

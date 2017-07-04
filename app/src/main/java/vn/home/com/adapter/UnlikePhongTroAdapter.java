@@ -27,9 +27,11 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import vn.home.com.bottombar.MainActivity;
@@ -74,7 +76,7 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         final PhongTro phongTro = this.objects.get(position);
-        txtGia.setText(phongTro.giaPhong + " VNĐ");
+
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + ", " + phongTro.diaChi.quan + ", " + phongTro.diaChi.thanhPho);
         if (phongTro.linkHinh != null) {
@@ -83,6 +85,13 @@ public class UnlikePhongTroAdapter extends ArrayAdapter<PhongTro> {
             Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/mylogin-c65fa.appspot.com/o/Photos%2F1.jpg?alt=media&token=aa387a71-52e3-46a5-a5a8-8712d3220ad3").into(imgHinh);
         }
         txtNgayDang.setText(phongTro.ngayDang);
+
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhong = currencyFormatter.format(phongTro.giaPhong);
+
+        txtGia.setText(giaPhong);
+
 
         btnUnlike.setOnClickListener(new View.OnClickListener() {
             @Override
