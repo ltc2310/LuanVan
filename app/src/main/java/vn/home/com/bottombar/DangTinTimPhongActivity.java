@@ -49,6 +49,7 @@ public class DangTinTimPhongActivity extends AppCompatActivity {
     Double longitude;
     String diaChi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
