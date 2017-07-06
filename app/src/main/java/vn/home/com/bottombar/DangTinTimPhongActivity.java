@@ -257,6 +257,7 @@ public class DangTinTimPhongActivity extends AppCompatActivity {
 
     private void addControls() {
         edtDiaChiCanTim = (EditText) findViewById(R.id.edtDiaChiCanTim);
+        edtDiaChiCanTim.setEnabled(false);
         edtDienTichPhongCanTim = (EditText) findViewById(R.id.edtDienTichPhongCanTim);
         edtGiaPhongMin = (EditText) findViewById(R.id.edtGiaPhongMin);
         edtGiaPhongMax = (EditText) findViewById(R.id.edtGiaPhongMax);

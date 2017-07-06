@@ -266,6 +266,7 @@ public class ChiTietSuaTinCanMuonActivity extends AppCompatActivity {
 
     private void addControls() {
         edtDiaChiCanTim = (EditText) findViewById(R.id.edtDiaChiSuaTinCT);
+        edtDiaChiCanTim.setEnabled(false);
         edtDienTichPhongCanTim = (EditText) findViewById(R.id.edtDienTichSuaTinCT);
         edtGiaPhongMin = (EditText) findViewById(R.id.edtGiaPhongMinSuaTinCT);
         edtGiaPhongMax = (EditText) findViewById(R.id.edtGiaPhongMaxSuaTinCT);
