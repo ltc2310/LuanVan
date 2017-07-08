@@ -14,6 +14,7 @@
 
         <TextView
             android:text="Ngày đăng:"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textColor="#1128ae"
@@ -42,6 +43,7 @@
 
         <TextView
             android:text="Giá phòng:"
+            android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="#1128ae"
@@ -70,6 +72,7 @@
             android:text="Diện tích:"
             android:textStyle="bold"
             android:textColor="#1128ae"
+            android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
+            android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:layout_weight="1"
             android:text="Địa chỉ:" />
@@ -111,6 +115,7 @@
         <TextView
             android:textColor="#1128ae"
             android:textSize="15dp"
+            android:layout_marginLeft="10dp"
             android:textStyle="bold"
             android:text="637/33 Quang Trung Phường 11 Quận Gò Vấp"
             android:layout_width="wrap_content"
