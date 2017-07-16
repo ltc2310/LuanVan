@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/textView6"
@@ -11,24 +12,13 @@
         android:text="Thiết lập tìm kiếm" />
 
     <TextView
-        android:id="@+id/tvBanKinh"
+        android:id="@+id/tvBanKinhCT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bán kính: tất cả" />
 
     <SeekBar
-        android:id="@+id/sbBanKinh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvGiaPhong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giá phòng: tất cả" />
-
-    <SeekBar
-        android:id="@+id/sbGiaPhong"
+        android:id="@+id/sbBanKinhCT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -43,10 +33,74 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/tvGiaPhong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá phòng: " />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Từ:" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đến:" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtGiaTu"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:text="VNĐ" />
+
+        <EditText
+            android:id="@+id/txtGiaDen"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:text="VNĐ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:orientation="horizontal"></LinearLayout>
+
     <Button
         android:id="@+id/btnTimPhongTro"
-        android:layout_width="248dp"
+        android:layout_width="191dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:text="Tìm phòng trọ" />
+        android:text="Tìm phòng trọ"
+        android:layout_weight="0.06" />
 </LinearLayout>

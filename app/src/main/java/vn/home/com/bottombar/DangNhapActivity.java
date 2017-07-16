@@ -109,7 +109,6 @@ public class DangNhapActivity extends AppCompatActivity {
                             Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại: email hoặc mật khẩu không chính xác, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
                         } else {
                             checkIfEmailVerified();
-                            Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -142,6 +141,7 @@ public class DangNhapActivity extends AppCompatActivity {
             Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+            Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
         }else {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(DangNhapActivity.this, "Vui lòng kiểm tra email để kích hoạt tài khoản", Toast.LENGTH_SHORT).show();

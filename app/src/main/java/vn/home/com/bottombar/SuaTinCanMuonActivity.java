@@ -15,7 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 import vn.home.com.adapter.MyAdapter;
@@ -43,7 +45,11 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE1");
         phongTro = (PhongTroCanMuon) bundle.getSerializable("PHONGTROCANMUON");
         txtDiaChi.setText(phongTro.diaChi);
-        txtGia.setText(phongTro.giaPhongMin.toString() + " VNĐ" + " - " + phongTro.giaPhongMax.toString() + " VNĐ");
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhongMin =  currencyFormatter.format(phongTro.giaPhongMin);
+        String giaPhongMax = currencyFormatter.format(phongTro.giaPhongMax);
+        txtGia.setText(giaPhongMin + " - " + giaPhongMax);
         txtMoTa.setText(phongTro.moTa);
         txtNguoiDung.setText(phongTro.tenNguoiDung);
         txtLienLac.setText(phongTro.sdt);
@@ -85,7 +91,7 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
                 databaseReference.child("cantim").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("ngungDangTin").setValue(true);
+                        dataSnapshot.getRef().child("ngungDangTinCM").setValue(true);
                         Toast.makeText(SuaTinCanMuonActivity.this, "Tin của bạn đã được dừng đăng", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SuaTinCanMuonActivity.this, QuanLyActivity.class));
                     }

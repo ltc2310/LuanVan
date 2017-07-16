@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 import vn.home.com.adapter.MyAdapter;
@@ -37,7 +39,11 @@ public class ChiTietCanTimActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE1");
         phongTro = (PhongTroCanMuon) bundle.getSerializable("PHONGTROCANMUON");
         txtDiaChi.setText(phongTro.diaChi);
-        txtGia.setText(phongTro.giaPhongMin.toString() + " VNĐ" + " - " + phongTro.giaPhongMax.toString() + " VNĐ");
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhongMin =  currencyFormatter.format(phongTro.giaPhongMin);
+        String giaPhongMax = currencyFormatter.format(phongTro.giaPhongMax);
+        txtGia.setText(giaPhongMin + " - " + giaPhongMax);
         txtMoTa.setText(phongTro.moTa);
         txtNguoiDung.setText(phongTro.tenNguoiDung);
         txtLienLac.setText(phongTro.sdt);

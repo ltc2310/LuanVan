@@ -44,7 +44,7 @@ public class GuiMailNguoiDungActivity extends AppCompatActivity {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" +phongtro.email));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, tieuDe);
                 emailIntent.putExtra(Intent.EXTRA_TEXT,"Xin chào anh/chị \n" +
-                        " Tin đăng" + phongtro.diaChi.diaChiChiTiet +" "+ phongtro.diaChi.quan +" "+
+                        " Tin đăng " + phongtro.diaChi.diaChiChiTiet +" "+ phongtro.diaChi.quan +" "+
                         phongtro.diaChi.thanhPho + " của anh/chị \n"+
                         noiDung +
                         "\n Vui lòng kiểm tra lại hoặc liên hệ admin để được hỗ trợ \n Xin cảm ơn!");

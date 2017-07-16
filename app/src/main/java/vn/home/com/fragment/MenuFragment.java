@@ -1,5 +1,6 @@
 package vn.home.com.fragment;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import vn.home.com.bottombar.DangNhapActivity;
 import vn.home.com.bottombar.DangTinChoThueActivity;
+import vn.home.com.bottombar.DangTinTimPhongActivity;
 import vn.home.com.bottombar.DuyetTinActivity;
 import vn.home.com.bottombar.MainActivity;
 import vn.home.com.bottombar.QuanLyActivity;
@@ -86,14 +88,14 @@ public class MenuFragment extends Fragment {
             v = inflater.inflate(R.layout.layout_menu_login, container, false);
             Button btnDangXuat = (Button) v.findViewById(R.id.btnDangXuat);
             Button btnNguoiDung = (Button) v.findViewById(R.id.btnNguoiDung);
-            Button btnDangTin = (Button) v.findViewById(R.id.btnDangTin);
+//            Button btnDangTin = (Button) v.findViewById(R.id.btnDangTin);
             Button btnThoat = (Button) v.findViewById(R.id.btnThoat);
             Button btnThongTin = (Button) v.findViewById(R.id.btnThongTin);
             Button btnTroGiup = (Button) v.findViewById(R.id.btnTroGiup);
             Button btnDuyetTinCM = (Button) v.findViewById(R.id.btnDuyeTinCM);
             btnDuyetTinCM.setEnabled(false);
             btnDuyetTinCM.setVisibility(View.INVISIBLE);
-            if (auth.getCurrentUser().getEmail().equals("thanhcong.dev@gmail.com")){
+            if (auth.getCurrentUser().getEmail().equals("thanhcong.dev@gmail.com")) {
                 btnDuyetTinCM.setVisibility(View.VISIBLE);
                 btnDuyetTinCM.setEnabled(true);
             }
@@ -119,13 +121,29 @@ public class MenuFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-            btnDangTin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), DangTinChoThueActivity.class);
-                    startActivity(intent);
-                }
-            });
+//            btnDangTin.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+//                    alertDialog.setTitle("Chọn tin cần đăng");
+//                    alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Đăng tin cho mướn", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            Intent intent = new Intent(getActivity(), DangTinChoThueActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Đăng tin cần mướn", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            Intent intent = new Intent(getActivity(), DangTinTimPhongActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    alertDialog.show();
+//
+//                }
+//            });
             btnThongTin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,14 +180,14 @@ public class MenuFragment extends Fragment {
             btnDuyetTinCM.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(),DuyetTinActivity.class));
+                    startActivity(new Intent(getActivity(), DuyetTinActivity.class));
                 }
             });
 
             btnQuanLy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(),QuanLyActivity.class));
+                    startActivity(new Intent(getActivity(), QuanLyActivity.class));
                 }
             });
         }

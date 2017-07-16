@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +43,10 @@ public class XemChiTietActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE");
         phongTro = (PhongTro) bundle.getSerializable("PHONGTRO");
         txtDiaChi.setText(phongTro.diaChi.diaChiChiTiet + " ,"+ phongTro.diaChi.quan + " ," + phongTro.diaChi.thanhPho);
-        txtGia.setText(phongTro.giaPhong.toString() + " VNĐ");
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        String giaPhong = currencyFormatter.format(phongTro.giaPhong);
+        txtGia.setText(giaPhong);
         txtMoTa.setText(phongTro.moTa);
         txtNguoiDung.setText(phongTro.tenNguoiDung);
         txtLienLac.setText(phongTro.sdt);

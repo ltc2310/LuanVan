@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
     DatabaseReference databaseReference;
     FirebaseAuth auth;
     ArrayList<String> dsMaYeuThich;
+    int check = 0;
 
 
     public PhongTroAdapter(Activity context, int resource, List<PhongTro> objects) {
@@ -72,7 +74,10 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     PhongTroYeuThich phongTroYeuThich = dataSnapshot.getValue(PhongTroYeuThich.class);
                     if (phongTroYeuThich.email.toString().equals(auth.getCurrentUser().getEmail()))
-                    dsMaYeuThich.add(phongTroYeuThich.maPhongTroYeuThich);
+                        dsMaYeuThich.add(phongTroYeuThich.maPhongTroYeuThich);
+                    if (dsMaYeuThich.size() == 0) {
+                        check = 2;
+                    }
                 }
 
                 @Override
@@ -95,6 +100,7 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
 
                 }
             });
+
         }
     }
 
@@ -137,15 +143,17 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
         return row;
     }
 
-    int check = 0;
+
     private void xuLyThich(final PhongTro phongTro) {
-        if (auth.getCurrentUser() ==null){
+
+
+        if (auth.getCurrentUser() == null) {
             Toast.makeText(getContext(), "Vui lòng đăng nhập để thêm phòng trọ yêu thích", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child("phongtroyeuthich").exists()){
+                    if (dataSnapshot.child("phongtroyeuthich").exists()) {
                         for (String item : dsMaYeuThich) {
                             if (item.toString().equals(phongTro.id)) {
                                 check = 1;
@@ -158,14 +166,14 @@ public class PhongTroAdapter extends ArrayAdapter<PhongTro> {
                             xuLyThemPhongTroVaoDanhSachYeuThich(phongTro);
                             dsMaYeuThich.add(phongTro.id);
                             check = 0;
-                        }
-                        else if (check == 1) {
+                        } else if (check == 1) {
                             Toast.makeText(getContext(), "Phòng trọ đã được thêm phòng trọ vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                         }
-                    }else {
+                    } else {
                         xuLyThemPhongTroVaoDanhSachYeuThich(phongTro);
                     }
                 }
+
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {

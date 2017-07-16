@@ -40,7 +40,7 @@ public class GuiMailTuChoiTinCanMuonActivity extends AppCompatActivity {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" +phongtro.emailPhongTroCM));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, tieuDe);
                 emailIntent.putExtra(Intent.EXTRA_TEXT,"Xin chào anh/chị \n" +
-                        " Tin đăng" + phongtro.diaChi + " của anh/chị \n"+
+                        " Tin đăng " + phongtro.diaChi + " của anh/chị \n"+
                         noiDung +
                         "\n Vui lòng kiểm tra lại hoặc liên hệ admin để được hỗ trợ \n Xin cảm ơn!");
                 startActivity(Intent.createChooser(emailIntent, tieuDeKhiGui));

@@ -18,19 +18,19 @@
             android:drawableLeft="@drawable/ic_person"
             android:text="Thông tin người dùng"/>
 
-        <Button
-            android:id="@+id/btnDangTin"
-            android:background="#ffffff"
-            android:layout_marginTop="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:paddingLeft="35dp"
-            android:drawablePadding="-120dp"
-            android:text="Đăng tin ngay"
-            android:drawableLeft="@drawable/ic_news"
-            android:layout_below="@+id/btnNguoiDung"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        <!--<Button-->
+            <!--android:id="@+id/btnDangTin"-->
+            <!--android:background="#ffffff"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:paddingLeft="35dp"-->
+            <!--android:drawablePadding="-120dp"-->
+            <!--android:text="Đăng tin ngay"-->
+            <!--android:drawableLeft="@drawable/ic_news"-->
+            <!--android:layout_below="@+id/btnNguoiDung"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
 
         <Button
             android:id="@+id/btnDangXuat"
@@ -42,7 +42,7 @@
             android:drawableLeft="@drawable/ic_signout"
             android:drawablePadding="-150dp"
             android:text="Đăng xuất"
-            android:layout_below="@+id/btnDangTin"
+            android:layout_below="@+id/btnNguoiDung"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 

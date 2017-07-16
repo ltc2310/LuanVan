@@ -58,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng loc;
     private Double banKinh, giaPhong, latLang, latLong;
     private String tinhDuocChon,quanDuocChon;
+    private Double giaPhongTu,giaPhongDen;
     private int dienTich;
     private String luaChon;
     private List<PhongTro> listPhongTro;
@@ -65,7 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Geocoder geocoder;
     private LatLng latLng;
     private String diaChi;
-
+    private String tenNguoiTim,sdt,moTa,ngayDang,email,key;
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +111,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (luaChon.equals("xungquanh")) {
             Bundle bundle = getIntent().getExtras();
             banKinh = bundle.getDouble("bankinh");
-            giaPhong = bundle.getDouble("giaphong");
+            giaPhongTu =Double.parseDouble(bundle.getString("giaphongtu"));
+            giaPhongDen =Double.parseDouble(bundle.getString("giaphongden"));
             dienTich = bundle.getInt("dientich");
 
             progressDialog = ProgressDialog.show(this, "Vui lòng chờ.", "Đang tải bản đồ...", true);
@@ -125,15 +128,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Bundle bundle = getIntent().getExtras();
             tinhDuocChon = bundle.getString("tinhduocchon");
             quanDuocChon = bundle.getString("quanduocchon");
-            giaPhong = bundle.getDouble("giaphong");
+            //giaPhong = bundle.getDouble("giaphong");
+            giaPhongTu =Double.parseDouble(bundle.getString("giaphongtutt"));
+            giaPhongDen =Double.parseDouble(bundle.getString("giaphongdentt"));
             dienTich = bundle.getInt("dientich");
 
             progressDialog = ProgressDialog.show(this, "Vui lòng chờ.", "Đang tải bản đồ...", true);
         }else if (luaChon.equals("tuchon")) {
             Bundle bundle = getIntent().getExtras();
             banKinh = bundle.getDouble("bankinh");
-            giaPhong = bundle.getDouble("giaphong");
+            giaPhongTu =Double.parseDouble(bundle.getString("giaphongtubk"));
+            giaPhongDen =Double.parseDouble(bundle.getString("giaphongdenbk"));
             dienTich = bundle.getInt("dientich");
+        }else if (luaChon.equals("chontoado")) {
+            Bundle bundle = getIntent().getExtras();
+            tenNguoiTim=bundle.getString("tenNguoiTim");
+            banKinh = bundle.getDouble("banKinh");
+            dienTich = bundle.getInt("dienTich");
+            giaPhongTu =bundle.getDouble("giaPhongMin");
+            giaPhongDen =bundle.getDouble("giaPhongMax");
+            sdt=bundle.getString("sdt");
+            moTa=bundle.getString("moTa");
+            ngayDang=bundle.getString("ngayDang");
+            email=bundle.getString("email");
+            key=bundle.getString("key");
+
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -173,6 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationChangeListener(listener);
 
+
         //lấy tọa độ một điểm bất kỳ để tìm kiếm xung quanh
 
 
@@ -181,116 +201,59 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapLoaded() {
 
                 if(luaChon.equals("xungquanh")) {
-                    if (banKinh == 0 && giaPhong == 0 && dienTich == 0) {
+                    location=mMap.getMyLocation();
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
+                    if (banKinh == 0 && dienTich == 0) {
                         for (PhongTro item : listPhongTro) {
-                            mMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(item.latitude, item.longtitue))
-                                    .title(item.diaChi.diaChiChiTiet)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                    .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                        }
-                    } else if (banKinh == 0 && giaPhong == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (item.dienTich > dienTich) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-                    } else if (giaPhong == 0 && dienTich == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (CalculationByDistance(loc, new LatLng(item.latitude, item.longtitue)) < banKinh) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-
-                    } else if (banKinh == 0 && dienTich == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (item.giaPhong>giaPhong) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                            if(item.kichHoat==true) {
+                                if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
                             }
                         }
 
                     }else if (banKinh == 0) {
                         for (PhongTro item : listPhongTro) {
-                            if (item.dienTich > dienTich && item.giaPhong > giaPhong) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-                    } else if (giaPhong == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (item.dienTich > dienTich && CalculationByDistance(loc, new LatLng(item.latitude, item.longtitue)) < banKinh) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                            if(item.kichHoat==true) {
+                                if (item.dienTich > dienTich && item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
                             }
                         }
                     } else if (dienTich == 0) {
                         for (PhongTro item : listPhongTro) {
-                            if (item.giaPhong > giaPhong && CalculationByDistance(loc, new LatLng(item.latitude, item.longtitue)) < banKinh) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                            if(item.kichHoat==true) {
+                                if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && CalculationByDistance(loc, new LatLng(item.latitude, item.longtitue)) <= banKinh) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
+                            }
+                        }
+                    }else if(banKinh != 0 && dienTich != 0) {
+                        for (PhongTro item : listPhongTro) {
+                            if(item.kichHoat==true) {
+                                if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && item.dienTich > dienTich && CalculationByDistance(loc, new LatLng(item.latitude, item.longtitue)) <= banKinh) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
                             }
                         }
                     }
                     progressDialog.dismiss();
-                }
-                else if(luaChon.equals("khuvuc")) {
-                    if (giaPhong == 0 && dienTich == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if(item.diaChi.quan.equals(quanDuocChon)) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-                    } else if (giaPhong == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (item.dienTich > dienTich && item.diaChi.quan.equals(quanDuocChon)) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-                    } else if (dienTich == 0) {
-                        for (PhongTro item : listPhongTro) {
-                            if (item.giaPhong>giaPhong && item.diaChi.quan.equals(quanDuocChon)) {
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(item.latitude, item.longtitue))
-                                        .title(item.diaChi.diaChiChiTiet)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                        .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                            }
-                        }
-
-                    }
-                    progressDialog.dismiss();
-                }
-                else if(luaChon.equals("tuchon")) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 6));
                     mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                         @Override
                         public void onMapClick(LatLng latLng) {
@@ -298,82 +261,91 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.addMarker(new MarkerOptions()
                                     .position(latLng)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.location_icon)));
-                            if (banKinh == 0 && giaPhong == 0 && dienTich == 0) {
+                            if (banKinh == 0 && dienTich == 0) {
                                 for (PhongTro item : listPhongTro) {
-                                    mMap.addMarker(new MarkerOptions()
-                                            .position(new LatLng(item.latitude, item.longtitue))
-                                            .title(item.diaChi.diaChiChiTiet)
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-
-                                }
-                            } else if (banKinh == 0 && giaPhong == 0) {
-                                for (PhongTro item : listPhongTro) {
-                                    if (item.dienTich > dienTich) {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                                    }
-                                }
-                            } else if (giaPhong == 0 && dienTich == 0) {
-                                for (PhongTro item : listPhongTro) {
-                                    if (CalculationByDistance(latLng, new LatLng(item.latitude, item.longtitue)) < banKinh)  {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
-                                    }
-                                }
-
-                            } else if (banKinh == 0 && dienTich == 0) {
-                                for (PhongTro item : listPhongTro) {
-                                    if (item.giaPhong>giaPhong) {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                    if(item.kichHoat==true) {
+                                        if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen) {
+                                            mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(item.latitude, item.longtitue))
+                                                    .title(item.diaChi.diaChiChiTiet)
+                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                                    .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                        }
                                     }
                                 }
 
                             }else if (banKinh == 0) {
                                 for (PhongTro item : listPhongTro) {
-                                    if (item.dienTich > dienTich && item.giaPhong > giaPhong) {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                    if(item.kichHoat==true) {
+                                        if (item.dienTich > dienTich && item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen) {
+                                            mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(item.latitude, item.longtitue))
+                                                    .title(item.diaChi.diaChiChiTiet)
+                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                                    .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                        }
                                     }
                                 }
-                            } else if (giaPhong == 0) {
+                            }  else if (dienTich == 0) {
                                 for (PhongTro item : listPhongTro) {
-                                    if (item.dienTich > dienTich && CalculationByDistance(latLng, new LatLng(item.latitude, item.longtitue)) < banKinh) {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                    if(item.kichHoat==true) {
+                                        if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && CalculationByDistance(latLng, new LatLng(item.latitude, item.longtitue)) <= banKinh) {
+                                            mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(item.latitude, item.longtitue))
+                                                    .title(item.diaChi.diaChiChiTiet)
+                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                                    .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                        }
                                     }
                                 }
-                            } else if (dienTich == 0) {
+                            }else if(banKinh != 0 && dienTich != 0) {
                                 for (PhongTro item : listPhongTro) {
-                                    if (item.giaPhong > giaPhong && CalculationByDistance(latLng, new LatLng(item.latitude, item.longtitue)) < banKinh) {
-                                        mMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(item.latitude, item.longtitue))
-                                                .title(item.diaChi.diaChiChiTiet)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
-                                                .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                    if(item.kichHoat==true) {
+                                        if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && item.dienTich > dienTich && CalculationByDistance(latLng, new LatLng(item.latitude, item.longtitue)) <= banKinh) {
+                                            mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(item.latitude, item.longtitue))
+                                                    .title(item.diaChi.diaChiChiTiet)
+                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                                    .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                        }
                                     }
                                 }
                             }
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                         }
                     });
-                }else if(luaChon.equals("chontoado")) {
+                }
+                else if(luaChon.equals("khuvuc")) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 6));
+                    if (dienTich == 0) {
+                        for (PhongTro item : listPhongTro) {
+                            if(item.kichHoat==true) {
+                                if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && item.diaChi.quan.equals(quanDuocChon)) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
+                            }
+                        }
+
+                    }else{
+                        for (PhongTro item : listPhongTro) {
+                            if(item.kichHoat==true) {
+                                if (item.giaPhong >= giaPhongTu && item.giaPhong <= giaPhongDen && item.diaChi.quan.equals(quanDuocChon) && item.dienTich>dienTich) {
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(item.latitude, item.longtitue))
+                                            .title(item.diaChi.diaChiChiTiet)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_home))
+                                            .snippet("Giá phòng: " + item.giaPhong + " triệu"));
+                                }
+                            }
+                        }
+                    }
+                    progressDialog.dismiss();
+                }
+                else if(luaChon.equals("chontoado")) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 6));
                     mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                         @Override
@@ -407,7 +379,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(loc).visible(false));
 
                 if (luaChon.equals("xungquanh")) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
                 }
                 if (luaChon.equals("khuvuc")) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 6));

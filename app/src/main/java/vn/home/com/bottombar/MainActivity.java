@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 }
-                                if (listPhongTroDeCu.size() > soLuong) {
+                                if (listPhongTroDeCu.size() > soLuong ) {
                                     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     notificationManager.cancel(notificationId);
                                     notificationManager.cancelAll();
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.location_icon)
                 .setContentTitle("Có thông báo")
-                .setContentText("Nhấn vào để cập nhật version");
+                .setContentText("Đã có phòng trọ mới phù hợp!!!");
 
         Intent intent = new Intent(this,NotificationActivity.class);
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -29,7 +30,8 @@ public class SearchFragement extends Fragment{
     Button btnTimPhongTro,btnTimPhongTroTT,btnTimPhongTroBK;
     TextView tvBanKinh,tvGiaPhong,tvDienTich,tvTinhThanh,tvGiaPhongTT,tvDienTichTT,tvBanKinhBK,tvDienTichBK,tvGiaPhongBK;
 
-    SeekBar sbBanKinh,sbGiaPhong,sbDienTich,sbGiaPhongTT,sbDienTichTT,sbBanKinhBK,sbGiaPhongBK,sbDienTichBK;
+    SeekBar sbBanKinh,sbDienTich,sbDienTichTT,sbBanKinhBK,sbGiaPhongBK,sbDienTichBK;
+    EditText txtGiaTuTT,txtGiaDenTT,txtGiaTu,txtGiaDen,txtGiaTuBK,txtGiaDenBK;
 
     Spinner spTinhThanh,spQuanHuyen;
     String [] arrTinhThanh;
@@ -40,6 +42,7 @@ public class SearchFragement extends Fragment{
     private String quanDuocChon;
 
     private Double banKinh = 0D, giaPhong = 0D;
+    private static String giaPhongTu,giaPhongDen;
     private int dienTich = 0;
 
 
@@ -63,37 +66,29 @@ public class SearchFragement extends Fragment{
         tab2.setIndicator("Khu vực");
         tabHost.addTab(tab2);
 
-        //add tab2
-        TabHost.TabSpec tab3=tabHost.newTabSpec("t3");
-        tab3.setContent(R.id.tab3);
-        tab3.setIndicator("Tự chọn");
-        tabHost.addTab(tab3);
+
 
 
         //add controls
         btnTimPhongTro = (Button) v.findViewById(R.id.btnTimPhongTro);
         btnTimPhongTroTT = (Button) v.findViewById(R.id.btnTimPhongTroTT);
-        btnTimPhongTroBK = (Button) v.findViewById(R.id.btnTimPhongTroBK);
 
 
-        tvBanKinh= (TextView) v.findViewById(R.id.tvBanKinh);
-        tvBanKinhBK= (TextView) v.findViewById(R.id.tvBanKinhBK);
+
+        tvBanKinh= (TextView) v.findViewById(R.id.tvBanKinhCT);
+
         tvGiaPhong = (TextView) v.findViewById(R.id.tvGiaPhong);
         tvGiaPhongTT = (TextView) v.findViewById(R.id.tvGiaPhongTT);
-        tvGiaPhongBK = (TextView) v.findViewById(R.id.tvGiaPhongBK);
+
         tvDienTich = (TextView) v.findViewById(R.id.tvDienTich);
         tvDienTichTT = (TextView) v.findViewById(R.id.tvDienTichTT);
-        tvDienTichBK = (TextView) v.findViewById(R.id.tvDienTichBK);
+
         tvTinhThanh = (TextView) v.findViewById(R.id.tvTinhThanh);
 
-        sbBanKinh = (SeekBar) v.findViewById(R.id.sbBanKinh);
-        sbBanKinhBK = (SeekBar) v.findViewById(R.id.sbBanKinhBK);
+        sbBanKinh = (SeekBar) v.findViewById(R.id.sbBanKinhCT);
+
         sbDienTich = (SeekBar) v.findViewById(R.id.sbDienTich);
         sbDienTichTT = (SeekBar) v.findViewById(R.id.sbDienTichTT);
-        sbDienTichBK = (SeekBar) v.findViewById(R.id.sbDienTichBK);
-        sbGiaPhong = (SeekBar) v.findViewById(R.id.sbGiaPhong);
-        sbGiaPhongTT = (SeekBar) v.findViewById(R.id.sbGiaPhongTT);
-        sbGiaPhongBK = (SeekBar) v.findViewById(R.id.sbGiaPhongBK);
 
         spTinhThanh = (Spinner) v.findViewById(R.id.spTinhThanh);
         spQuanHuyen = (Spinner) v.findViewById(R.id.spQuanHuyen);
@@ -102,16 +97,21 @@ public class SearchFragement extends Fragment{
         adapterTinhThanh.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTinhThanh.setAdapter(adapterTinhThanh);
 
+        txtGiaTuTT= (EditText) v.findViewById(R.id.txtGiaTuTT);
+        txtGiaDenTT = (EditText) v.findViewById(R.id.txtGiaDenTT);
+        txtGiaTu= (EditText) v.findViewById(R.id.txtGiaTu);
+        txtGiaDen = (EditText) v.findViewById(R.id.txtGiaDen);
 
 
-        sbBanKinh.setMax(10);
-        sbGiaPhong.setMax(10);
+        sbBanKinh.setMax(20);
         sbDienTich.setMax(10);
-        sbGiaPhongTT.setMax(10);
         sbDienTichTT.setMax(10);
-        sbBanKinhBK.setMax(10);
-        sbGiaPhongBK.setMax(10);
-        sbDienTichBK.setMax(10);
+
+
+
+
+
+
 
 
         spTinhThanh.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -136,40 +136,88 @@ public class SearchFragement extends Fragment{
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 switch (i) {
                     case 1:
-                        tvBanKinh.setText("Bán kính: 500 m");
-                        banKinh = 0.5D;
-                        break;
-                    case 2:
                         tvBanKinh.setText("Bán kính: 1 km");
                         banKinh = 1D;
                         break;
-                    case 3:
+                    case 2:
                         tvBanKinh.setText("Bán kính: 2 km");
                         banKinh = 2D;
+                        break;
+                    case 3:
+                        tvBanKinh.setText("Bán kính: 3 km");
+                        banKinh = 3D;
                         break;
                     case 4:
                         tvBanKinh.setText("Bán kính: 4 km");
                         banKinh = 4D;
                         break;
                     case 5:
+                        tvBanKinh.setText("Bán kính: 5 km");
+                        banKinh = 5D;
+                        break;
+                    case 6:
+                        tvBanKinh.setText("Bán kính: 6 km");
+                        banKinh = 6D;
+                        break;
+                    case 7:
+                        tvBanKinh.setText("Bán kính: 7 km");
+                        banKinh = 7D;
+                        break;
+                    case 8:
                         tvBanKinh.setText("Bán kính: 8 km");
                         banKinh = 8D;
                         break;
-                    case 6:
+                    case 9:
+                        tvBanKinh.setText("Bán kính: 9 km");
+                        banKinh = 9D;
+                        break;
+                    case 10:
+                        tvBanKinh.setText("Bán kính: 10 km");
+                        banKinh = 10D;
+                        break;
+                    case 11:
+                        tvBanKinh.setText("Bán kính: 11 km");
+                        banKinh = 11D;
+                        break;
+                    case 12:
+                        tvBanKinh.setText("Bán kính: 12 km");
+                        banKinh = 12D;
+                        break;
+                    case 13:
+                        tvBanKinh.setText("Bán kính: 13 km");
+                        banKinh = 13D;
+                        break;
+                    case 14:
+                        tvBanKinh.setText("Bán kính: 14 km");
+                        banKinh = 14D;
+                        break;
+                    case 15:
                         tvBanKinh.setText("Bán kính: 15 km");
                         banKinh = 15D;
                         break;
-                    case 7:
+                    case 16:
+                        tvBanKinh.setText("Bán kính: 16 km");
+                        banKinh = 16D;
+                        break;
+                    case 17:
+                        tvBanKinh.setText("Bán kính: 17 km");
+                        banKinh = 17D;
+                        break;
+                    case 18:
+                        tvBanKinh.setText("Bán kính: 18 km");
+                        banKinh = 18D;
+                        break;
+                    case 19:
+                        tvBanKinh.setText("Bán kính: 19 km");
+                        banKinh = 19D;
+                        break;
+                    case 20:
                         tvBanKinh.setText("Bán kính: 20 km");
                         banKinh = 20D;
                         break;
-                    case 8:
-                        tvBanKinh.setText("Bán kính: 30 km");
-                        banKinh = 30D;
-                        break;
                     default:
                         tvBanKinh.setText("Bán kính: tất cả");
-                        banKinh=0D;
+                        banKinh = 0D;
                         break;
                 }
             }
@@ -186,67 +234,6 @@ public class SearchFragement extends Fragment{
         });
 
 
-        sbGiaPhong.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                switch (i) {
-                    case 1:
-                        tvGiaPhong.setText("Giá phòng: trên 500 nghìn");
-                        giaPhong = 0.5D;
-                        break;
-                    case 2:
-                        tvGiaPhong.setText("Giá phòng: trên 1 triệu");
-                        giaPhong = 1D;
-                        break;
-                    case 3:
-                        tvGiaPhong.setText("Giá phòng: trên 1.5 triệu");
-                        giaPhong = 1.5D;
-                        break;
-                    case 4:
-                        tvGiaPhong.setText("Giá phòng: trên 2 triệu");
-                        giaPhong = 2D;
-                        break;
-                    case 5:
-                        tvGiaPhong.setText("Giá phòng: trên 2.5 triệu");
-                        giaPhong = 2.5D;
-                        break;
-                    case 6:
-                        tvGiaPhong.setText("Giá phòng: trên 3 triệu");
-                        giaPhong = 3D;
-                        break;
-                    case 7:
-                        tvGiaPhong.setText("Giá phòng: trên 3.5 triệu");
-                        giaPhong = 3.5D;
-                        break;
-                    case 8:
-                        tvGiaPhong.setText("Giá phòng: trên 4 triệu");
-                        giaPhong = 4D;
-                        break;
-                    case 9:
-                        tvGiaPhong.setText("Giá phòng: trên 4.5 triệu");
-                        giaPhong = 4.5D;
-                        break;
-                    case 10:
-                        tvGiaPhong.setText("Giá phòng: trên 5 triệu");
-                        giaPhong = 5D;
-                        break;
-                    default:
-                        tvGiaPhong.setText("Giá phòng: tất cả");
-                        giaPhong=0D;
-                        break;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         sbDienTich.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -310,67 +297,7 @@ public class SearchFragement extends Fragment{
             }
         });
 
-        sbGiaPhongTT.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                switch (i) {
-                    case 1:
-                        tvGiaPhongTT.setText("Giá phòng: trên 500 nghìn");
-                        giaPhong = 0.5D;
-                        break;
-                    case 2:
-                        tvGiaPhongTT.setText("Giá phòng: trên 1 triệu");
-                        giaPhong = 1D;
-                        break;
-                    case 3:
-                        tvGiaPhongTT.setText("Giá phòng: trên 1.5 triệu");
-                        giaPhong = 1.5D;
-                        break;
-                    case 4:
-                        tvGiaPhongTT.setText("Giá phòng: trên 2 triệu");
-                        giaPhong = 2D;
-                        break;
-                    case 5:
-                        tvGiaPhongTT.setText("Giá phòng: trên 2.5 triệu");
-                        giaPhong = 2.5D;
-                        break;
-                    case 6:
-                        tvGiaPhongTT.setText("Giá phòng: trên 3 triệu");
-                        giaPhong = 3D;
-                        break;
-                    case 7:
-                        tvGiaPhongTT.setText("Giá phòng: trên 3.5 triệu");
-                        giaPhong = 3.5D;
-                        break;
-                    case 8:
-                        tvGiaPhongTT.setText("Giá phòng: trên 4 triệu");
-                        giaPhong = 4D;
-                        break;
-                    case 9:
-                        tvGiaPhongTT.setText("Giá phòng: trên 4.5 triệu");
-                        giaPhong = 4.5D;
-                        break;
-                    case 10:
-                        tvGiaPhongTT.setText("Giá phòng: trên 5 triệu");
-                        giaPhong = 5D;
-                        break;
-                    default:
-                        tvGiaPhongTT.setText("Giá phòng: tất cả");
-                        giaPhong=0D;
-                        break;
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         sbDienTichTT.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -435,228 +362,92 @@ public class SearchFragement extends Fragment{
         });
 
 
-        sbBanKinhBK.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                switch (i) {
-                    case 1:
-                        tvBanKinhBK.setText("Bán kính: 500 m");
-                        banKinh = 0.5D;
-                        break;
-                    case 2:
-                        tvBanKinhBK.setText("Bán kính: 1 km");
-                        banKinh = 1D;
-                        break;
-                    case 3:
-                        tvBanKinhBK.setText("Bán kính: 2 km");
-                        banKinh = 2D;
-                        break;
-                    case 4:
-                        tvBanKinhBK.setText("Bán kính: 4 km");
-                        banKinh = 4D;
-                        break;
-                    case 5:
-                        tvBanKinhBK.setText("Bán kính: 8 km");
-                        banKinh = 8D;
-                        break;
-                    case 6:
-                        tvBanKinhBK.setText("Bán kính: 15 km");
-                        banKinh = 15D;
-                        break;
-                    case 7:
-                        tvBanKinhBK.setText("Bán kính: 20 km");
-                        banKinh = 20D;
-                        break;
-                    case 8:
-                        tvBanKinhBK.setText("Bán kính: 30 km");
-                        banKinh = 30D;
-                        break;
-                    default:
-                        tvBanKinhBK.setText("Bán kính: tất cả");
-                        banKinh = 0D;
-                        break;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
 
-        sbGiaPhongBK.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                switch (i) {
-                    case 1:
-                        tvGiaPhongBK.setText("Giá phòng: trên 500 nghìn");
-                        giaPhong = 0.5D;
-                        break;
-                    case 2:
-                        tvGiaPhongBK.setText("Giá phòng: trên 1 triệu");
-                        giaPhong = 1D;
-                        break;
-                    case 3:
-                        tvGiaPhongBK.setText("Giá phòng: trên 1.5 triệu");
-                        giaPhong = 1.5D;
-                        break;
-                    case 4:
-                        tvGiaPhongBK.setText("Giá phòng: trên 2 triệu");
-                        giaPhong = 2D;
-                        break;
-                    case 5:
-                        tvGiaPhongBK.setText("Giá phòng: trên 2.5 triệu");
-                        giaPhong = 2.5D;
-                        break;
-                    case 6:
-                        tvGiaPhongBK.setText("Giá phòng: trên 3 triệu");
-                        giaPhong = 3D;
-                        break;
-                    case 7:
-                        tvGiaPhongBK.setText("Giá phòng: trên 3.5 triệu");
-                        giaPhong = 3.5D;
-                        break;
-                    case 8:
-                        tvGiaPhongBK.setText("Giá phòng: trên 4 triệu");
-                        giaPhong = 4D;
-                        break;
-                    case 9:
-                        tvGiaPhongBK.setText("Giá phòng: trên 4.5 triệu");
-                        giaPhong = 4.5D;
-                        break;
-                    case 10:
-                        tvGiaPhongBK.setText("Giá phòng: trên 5 triệu");
-                        giaPhong = 5D;
-                        break;
-                    default:
-                        tvGiaPhongBK.setText("Giá phòng: tất cả");
-                        giaPhong=0D;
-                        break;
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        sbDienTichBK.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                switch (i) {
-                    case 1:
-                        tvDienTichBK.setText("Diện tích: trên 5 mét vuông");
-                        dienTich = 5;
-                        break;
-                    case 2:
-                        tvDienTichBK.setText("Diện tích: trên 10 mét vuông");
-                        dienTich = 10;
-                        break;
-                    case 3:
-                        tvDienTichBK.setText("Diện tích: trên 15 mét vuông");
-                        dienTich = 15;
-                        break;
-                    case 4:
-                        tvDienTichBK.setText("Diện tích: trên 20 mét vuông");
-                        dienTich = 20;
-                        break;
-                    case 5:
-                        tvDienTichBK.setText("Diện tích: trên 25 mét vuông");
-                        dienTich = 25;
-                        break;
-                    case 6:
-                        tvDienTichBK.setText("Diện tích: trên 30 mét vuông");
-                        dienTich = 30;
-                        break;
-                    case 7:
-                        tvDienTichBK.setText("Diện tích: trên 35 mét vuông");
-                        dienTich = 35;
-                        break;
-                    case 8:
-                        tvDienTichBK.setText("Diện tích: trên 40 mét vuông");
-                        dienTich = 40;
-                        break;
-                    case 9:
-                        tvDienTichBK.setText("Diện tích: trên 45 mét vuông");
-                        dienTich = 45;
-                        break;
-                    case 10:
-                        tvDienTichBK.setText("Diện tích: trên 50 mét vuông");
-                        dienTich = 50;
-                        break;
-                    default:
-                        tvDienTichBK.setText("Diện tích: tất cả");
-                        dienTich=0;
-                        break;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         btnTimPhongTro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MapsActivity.class);
-                intent.putExtra("luachon", "xungquanh");
-//                Bundle bundle = new Bundle();
-//                bundle.putDouble("bankinh", banKinh);
-//                bundle.putDouble("giaphong", giaPhong);
-//                bundle.putInt("dientich", dienTich);
-//                intent.putExtras(bundle);
-                startActivity(intent);
+                giaPhongTu = txtGiaTu.getText().toString();
+                giaPhongDen = txtGiaDen.getText().toString();
+
+                if(giaPhongTu.isEmpty()||giaPhongTu.equals(""))
+                {
+                    Toast.makeText(getActivity(), "Vui lòng nhập vào giá phòng từ", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
+                else if(giaPhongDen.isEmpty()||giaPhongDen.equals(""))
+                {
+                    Toast.makeText(getActivity(), "Vui lòng nhập vào giá phòng đến", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                else if(Double.parseDouble(giaPhongDen)<=Double.parseDouble(giaPhongTu))
+                {
+                    Toast.makeText(getActivity(), "Giá phòng đến không được nhỏ hơn giá phòng từ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("luachon", "xungquanh");
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("bankinh", banKinh);
+                    bundle.putString("giaphongtu", giaPhongTu);
+                    bundle.putString("giaphongden", giaPhongDen);
+                    bundle.putInt("dientich", dienTich);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
             }
         });
 
         btnTimPhongTroTT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quanDuocChon= spQuanHuyen.getSelectedItem().toString();
-                Intent intent = new Intent(getActivity(), MapsActivity.class);
-                intent.putExtra("luachon", "khuvuc");
-                Bundle bundle = new Bundle();
-                bundle.putString("tinhduocchon",tinhDuocChon);
-                bundle.putString("quanduocchon",quanDuocChon);
-                bundle.putDouble("giaphong", giaPhong);
-                bundle.putInt("dientich", dienTich);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                giaPhongTu = txtGiaTuTT.getText().toString();
+                giaPhongDen = txtGiaDenTT.getText().toString();
+
+                if(giaPhongTu.isEmpty()||giaPhongTu.equals(""))
+                {
+                    Toast.makeText(getActivity(), "Vui lòng nhập vào giá phòng từ", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
+                else if(giaPhongDen.isEmpty()||giaPhongDen.equals(""))
+                {
+                    Toast.makeText(getActivity(), "Vui lòng nhập vào giá phòng đến", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                else if(Double.parseDouble(giaPhongDen)<=Double.parseDouble(giaPhongTu))
+                {
+                    Toast.makeText(getActivity(), "Giá phòng đến không được nhỏ hơn giá phòng từ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    quanDuocChon= spQuanHuyen.getSelectedItem().toString();
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("luachon", "khuvuc");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tinhduocchon",tinhDuocChon);
+                    bundle.putString("quanduocchon",quanDuocChon);
+                    bundle.putString("giaphongtutt", giaPhongTu);
+                    bundle.putString("giaphongdentt", giaPhongDen);
+                    bundle.putInt("dientich", dienTich);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
             }
         });
 
-        btnTimPhongTroBK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MapsActivity.class);
-                intent.putExtra("luachon", "tuchon");
-                Bundle bundle = new Bundle();
-                bundle.putDouble("bankinh", banKinh);
-                bundle.putDouble("giaphong", giaPhong);
-                bundle.putInt("dientich", dienTich);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
 
 
 
@@ -664,7 +455,7 @@ public class SearchFragement extends Fragment{
     }
 
     private void LayHuyenTheoTinh(Object itemSelected) {
-        if (itemSelected.toString().equals("TP HCM")){
+        if (itemSelected.toString().equals("Thành phố Hồ Chí Minh")){
             arrQuanHuyen = getResources().getStringArray(R.array.arrayQuanTPHCM);
             adapterQuanHuyen = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,arrQuanHuyen);
             spQuanHuyen.setAdapter(adapterQuanHuyen);

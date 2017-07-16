@@ -45,6 +45,7 @@ public class PhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> {
     ImageView imgHinhCanTim;
     DatabaseReference databaseReference;
     FirebaseAuth auth;
+    int check = 0;
     ArrayList<String> dsPhongTroQuanTam;
 
 
@@ -66,6 +67,9 @@ public class PhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> {
                     PhongTroQuanTam phongTroQuanTam = dataSnapshot.getValue(PhongTroQuanTam.class);
                     if (phongTroQuanTam.email.toString().equals(auth.getCurrentUser().getEmail()))
                         dsPhongTroQuanTam.add(phongTroQuanTam.maPhongTroQuanTam);
+                    if (dsPhongTroQuanTam.size() == 0){
+                        check = 2;
+                    }
                 }
 
                 @Override
@@ -130,7 +134,7 @@ public class PhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> {
         return row;
     }
 
-    int check = 0;
+
     private void xuLyThich(final PhongTroCanMuon phongTro) {
         if (auth.getCurrentUser() == null) {
             Toast.makeText(getContext(), "Vui lòng đăng nhập để thêm phòng trọ yêu thích", Toast.LENGTH_SHORT).show();
