@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 listPhongTroDeCu = new ArrayList<PhongTro>();
                 phongTro = dataSnapshot.getValue(PhongTro.class);
-                if (phongTro.kichHoat == true) {
+                if (phongTro.kichHoat == true && phongTro.ngungDangTin == false) {
                     listPhongTro.add(phongTro);
                     nguoiDung = auth.getCurrentUser();
                     if(nguoiDung!=null) {

@@ -316,7 +316,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
                 }
                 else if(luaChon.equals("khuvuc")) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 6));
+                    latLng = layToaDo (tinhDuocChon +" " + quanDuocChon,MapsActivity.this);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                     if (dienTich == 0) {
                         for (PhongTro item : listPhongTro) {
                             if(item.kichHoat==true) {
@@ -382,7 +383,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
                 }
                 if (luaChon.equals("khuvuc")) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 6));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 6));
                 }
                 if (luaChon.equals("tuchon")) {
 //                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(14.399367, 108.010967), 8));
@@ -456,6 +457,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return latLng;
     }
+
 
     @Override
     public void onDirectionFinderStart() {
