@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:paddingLeft="20dp"
+                android:inputType="textMultiLine"
                 android:hint="Địa chỉ cần tìm phòng"
                 android:background="#fafacf"/>
 

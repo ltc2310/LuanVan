@@ -111,7 +111,7 @@ public class UnlikePhongTroCanMuonAdapter extends ArrayAdapter<PhongTroCanMuon> 
         txtGia.setText(giaPhongMin + " - " + giaPhongMax);
 
         txtDienTich.setText(phongTro.dienTich + " mét vuông");
-        txtDiaChi.setText(phongTro.diaChi);
+        txtDiaChi.setText("Xung quanh khu vực " + phongTro.diaChi + " bán kính : " +phongTro.banKinh + " km");
         txtNgayDang.setText(phongTro.ngayDang);
         Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/mylogin-c65fa.appspot.com/o/Photos%2Fcantim.jpg?alt=media&token=3c85b848-0b08-4454-bdb5-b56b9e5bbb49").into(imgHinhCanTim);
 

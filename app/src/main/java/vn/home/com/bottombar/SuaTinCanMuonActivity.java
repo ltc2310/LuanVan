@@ -44,7 +44,7 @@ public class SuaTinCanMuonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("MY_BUNDLE1");
         phongTro = (PhongTroCanMuon) bundle.getSerializable("PHONGTROCANMUON");
-        txtDiaChi.setText(phongTro.diaChi);
+        txtDiaChi.setText("Xung quanh khu vực " + phongTro.diaChi + " bán kính : " +phongTro.banKinh + " km");
         Locale locale = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         String giaPhongMin =  currencyFormatter.format(phongTro.giaPhongMin);
